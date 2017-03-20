@@ -1,0 +1,20 @@
+{
+	"manifest_version": 2,
+	"name"       : "メモ",
+	"description": "単なるメモ帳",
+	"version"    : "0.1",
+	"icons"      : {
+		"16" : "files/img/icon/icon_16.png",
+		"48" : "files/img/icon/icon_48.png",
+		"128": "files/img/icon/icon_128.png"
+	},
+	"browser_action": {
+		"default_icon": {
+			"19": "files/img/icon/icon_48.png",
+			"38": "files/img/icon/icon_48.png"
+		},
+		"default_title": "メモ",
+		"default_popup": "popup.html"
+	},
+	"permissions": [ "storage" ]
+}

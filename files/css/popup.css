@@ -1,0 +1,206 @@
+@charset "UTF-8";
+
+
+/*#7f95d1
+#ff82a9
+#ffc0be
+#ffebe7*/
+
+/*-------------------------------------------------------------------------
+	Init
+/*-----------------------------------------------------------------------*/
+html {
+	font-size: 16px;
+}
+
+[data-content] {
+	display: none;
+}
+
+#all {
+	width: 30rem;
+}
+
+.wrap {
+	position: relative;
+	padding: 2rem;
+}
+
+/*-------------------------------------------------------------------------
+	Header
+/*-----------------------------------------------------------------------*/
+.header {
+	margin-bottom: 1.4rem;
+}
+
+	.header .page-title {
+		display: inline-block;
+		padding-left: 1.8rem;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		background-position: left center;
+		color: #888;
+		font-size: 1.2rem;
+		font-family: 'Roboto',arial,sans-serif;
+		letter-spacing: .1rem;
+	}
+
+		.header .page-title img {
+			margin-right: .5rem;
+		}
+
+[data-content="memo"] .header .page-title {
+	background-image: url('../img/icon/memo.png');
+}
+
+[data-content="setting"] .header .page-title {
+	background-image: url('../img/icon/setting.png');
+}
+
+/*-------------------------------------------------------------------------
+	Input
+/*-----------------------------------------------------------------------*/
+input[type="text"] {
+	padding: .3rem .4rem;
+	border: none;
+	font-size: 1rem;
+	transition: background-color .1s ease-in-out;
+}
+
+input[type="text"]:focus {
+	background-color: #f3f3f3;
+}
+
+/*-------------------------------------------------------------------------
+	Button
+/*-----------------------------------------------------------------------*/
+.button-jump {
+	position: relative;
+	float: right;
+	width: 1.5rem;
+	height: 1.5rem;
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	font-size: .8rem;
+}
+
+.button-jump[data-jump="setting"] {
+	background-image: url('../img/icon/setting.png');
+}
+
+.button-jump[data-jump="memo"] {
+	background-image: url('../img/icon/memo.png');
+}
+
+.button-save {
+	width: 7rem;
+	margin-right: 1rem;
+	padding: .4rem 1rem;
+	border: 1px solid #7f95d1;
+	border-radius: 2px;
+	background-color: #7f95d1;
+	color: #fff;
+	font-size: .8rem;
+	letter-spacing: .4rem;
+	cursor: pointer;
+	transition: all .1s ease-in-out;
+}
+
+.button-save:hover {
+	background-color: #a0b4e5;
+}
+
+.button-save:active {
+	background-color: #4f68a8;
+	letter-spacing: .1rem;
+}
+
+.button-save:focus {
+	border: 1px solid #4f68a8;
+}
+
+/*-------------------------------------------------------------------------
+	Memo
+/*-----------------------------------------------------------------------*/
+.inputarea {
+	height: 10rem;
+	margin-bottom: 1rem;
+	border-radius: 2px;
+}
+
+#textarea {
+	width: 100%;
+	height: 100%;
+	padding: .3rem .4rem;
+	border: 1px solid #cbd7f4;
+	box-sizing: border-box;
+	color: #3b3b3b;
+	font-size: 1rem;
+	letter-spacing: .1rem;
+	resize: none;
+	transition: border .1s ease-in-out;
+}
+
+#textarea:focus {
+	border: 1px solid #7f95d1;
+	background-color: #fbfbfb;
+}
+
+/*-------------------------------------------------------------------------
+	Setting
+/*-----------------------------------------------------------------------*/
+.setting-list {
+	margin-bottom: 3rem;
+}
+
+	.setting-list li {
+		margin-bottom: 2rem;
+	}
+
+	.setting-list li:last-child {
+		margin-bottom: 0;
+	}
+
+		.setting-list li label {
+			display: inline-block;
+			border-bottom: 1px solid #cbd7f4;
+			font-size: .8rem;
+			line-height: 1;
+		}
+
+		.setting-list li p {
+			color: #7f95d1;
+		}
+
+		.setting-list li input {
+			margin-right: .5rem;
+		}
+
+/*-------------------------------------------------------------------------
+	Setting
+/*-----------------------------------------------------------------------*/
+#message {
+	position: absolute;
+	right: 2rem;
+	bottom: 2rem;
+	font-size: .8rem;
+}
+
+	#message p {
+		position: relative;
+	}
+
+	#message p.error {
+		color: #ff82a9;
+	}
+
+	#message p.nice {
+		color: #a2ea93;
+	}
+
+	#message p.success {
+		color: #a0b4e5;
+	}
+
+
