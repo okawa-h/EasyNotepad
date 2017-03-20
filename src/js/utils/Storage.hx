@@ -37,6 +37,9 @@ class Storage {
 
 		get(function(data:Dynamic) {
 
+			if (data == null) {
+				data = {};
+			}
 			Reflect.setProperty(data,key,value);
 			var object : Dynamic = {};
 			Reflect.setProperty(object,Manager.APP_NAME,data);
