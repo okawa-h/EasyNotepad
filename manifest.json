@@ -16,5 +16,12 @@
 		"default_title": "メモ",
 		"default_popup": "popup.html"
 	},
+	"content_scripts": [
+		{
+			"matches": ["http://*/*","https://*/*"],
+			"js"     : ["files/js/jquery.js","files/js/content.js"],
+			"run_at" : "document_start"
+		}
+	],
 	"permissions": [ "storage" ]
 }

@@ -1,15 +1,14 @@
 package utils;
 
-import js.Browser;
 import js.jquery.JQuery;
 import js.jquery.Event;
 import view.PageManager;
+import view.PopupWindow;
 
 using Lambda;
 
 class EventManager {
 
-	private static var _jWindow : JQuery = new JQuery(Browser.window);
 	private static var _keys    : Array<Int>;
 
 	/* =======================================================================
@@ -19,7 +18,7 @@ class EventManager {
 
 		_keys = new Array();
 
-		_jWindow.on({
+		PopupWindow.get().on({
 
 			keydown : onKeydown,
 			keyup   : onKeyup
@@ -33,11 +32,18 @@ class EventManager {
 		========================================================================== */
 		private static function onKeydown(event:Event):Void {
 
-			_keys.push(event.keyCode);
+			var key : Int = event.keyCode;
+			_keys.push(key);
 
-			if (_keys.has(91) && event.keyCode == 13) {
+			if (_keys.has(91) && key == 13) {
 
 				PageManager.onShortcutSave();
+
+			}
+
+			if (_keys.has(91) && key == 67) {
+
+				PopupWindow.close();
 
 			}
 
@@ -54,6 +60,8 @@ class EventManager {
 				case 13:
 					PageManager.onEnterKey();
 			}
+
+			PageManager.onKeyup();
 
 		}
 

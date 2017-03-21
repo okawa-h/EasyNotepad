@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+@import url('base.css');
 
 /*#7f95d1
 #ff82a9
@@ -18,12 +18,12 @@ html {
 }
 
 #all {
-	width: 30rem;
+	width: 40rem;
 }
 
 .wrap {
 	position: relative;
-	padding: 2rem;
+	padding: 2.5rem 2rem 2rem;
 }
 
 /*-------------------------------------------------------------------------
@@ -120,16 +120,70 @@ input[type="text"]:focus {
 	border: 1px solid #4f68a8;
 }
 
+.button-url {
+	width: 7rem;
+	margin-right: 1rem;
+	padding: .4rem 1rem;
+	border: 1px solid #7f95d1;
+	border-radius: 2px;
+	background-color: #7f95d1;
+	color: #fff;
+	font-size: .8rem;
+	letter-spacing: .4rem;
+	cursor: pointer;
+	transition: all .1s ease-in-out;
+}
+
+.button-url:hover {
+	background-color: #a0b4e5;
+}
+
+.button-url:active {
+	background-color: #4f68a8;
+	letter-spacing: .1rem;
+}
+
+.button-url:focus {
+	border: 1px solid #4f68a8;
+}
+
+.button-time {
+	width: 7rem;
+	margin-right: 1rem;
+	padding: .4rem 1rem;
+	border: 1px solid #7f95d1;
+	border-radius: 2px;
+	background-color: #7f95d1;
+	color: #fff;
+	font-size: .8rem;
+	letter-spacing: .4rem;
+	cursor: pointer;
+	transition: all .1s ease-in-out;
+}
+
+.button-time:hover {
+	background-color: #a0b4e5;
+}
+
+.button-time:active {
+	background-color: #4f68a8;
+	letter-spacing: .1rem;
+}
+
+.button-time:focus {
+	border: 1px solid #4f68a8;
+}
+
 /*-------------------------------------------------------------------------
 	Memo
 /*-----------------------------------------------------------------------*/
 .inputarea {
-	height: 10rem;
+	height: 20rem;
 	margin-bottom: 1rem;
 	border-radius: 2px;
 }
 
-#textarea {
+.textarea {
 	width: 100%;
 	height: 100%;
 	padding: .3rem .4rem;
@@ -142,7 +196,7 @@ input[type="text"]:focus {
 	transition: border .1s ease-in-out;
 }
 
-#textarea:focus {
+.textarea:focus {
 	border: 1px solid #7f95d1;
 	background-color: #fbfbfb;
 }
@@ -203,4 +257,11 @@ input[type="text"]:focus {
 		color: #a0b4e5;
 	}
 
+#button-close {
+	position: absolute;
+	top: 1rem;
+	right: 2rem;
+	color: #bbb;
+	font-size: .8rem;
+}
 

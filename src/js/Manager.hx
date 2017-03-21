@@ -1,5 +1,6 @@
 package ;
 
+import js.Browser;
 import js.jquery.JQuery;
 import js.jquery.Event;
 import utils.*;
@@ -14,11 +15,14 @@ class Manager {
 	========================================================================== */
 	public static function init(event:Event):Void {
 
+		PopupWindow.init();
 		Storage.init();
 		Message.init();
 
 		EventManager.init();
 		PageManager.init();
+		setCloseButton();
+
 		onInit();
 
 	}
@@ -32,6 +36,19 @@ class Manager {
 
 				PageManager.setView(data);
 				Message.send('on loaded','nice');
+
+			});
+
+		}
+
+		/* =======================================================================
+			Set Close Button
+		========================================================================== */
+		private static function setCloseButton():Void {
+
+			new JQuery('#button-close').on('click',function() {
+
+				PopupWindow.close();
 
 			});
 

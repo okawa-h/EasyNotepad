@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="files/css/base.css">
 <link rel="stylesheet" href="files/css/popup.css">
 <title>Memo</title>
 </head>
@@ -17,8 +16,9 @@
 				<h1 class="page-title">Memo</h1>
 				<button class="button-jump" data-jump="setting">&nbsp;</button>
 			</header>
-			<div class="inputarea"><textarea id="textarea"></textarea></div>
-			<button class="button-save"><span>SAVE</span></button>
+			<div class="inputarea"><textarea class="textarea"></textarea></div>
+			<button class="button-url"><span>URL</span></button>
+			<button class="button-time"><span>TIME</span></button>
 		</section>
 
 		<section data-content="setting">
@@ -35,6 +35,7 @@
 		</section>
 		
 		<div id="message"></div>
+		<button id="button-close">✕</button>
 
 	</div>
 

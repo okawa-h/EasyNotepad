@@ -8,8 +8,6 @@ import view.page.*;
 class PageManager {
 
 	private static var _Pages : Map<String,Page>;
-	private var _pagename : String;
-	private var _jParent  : JQuery;
 
 	/* =======================================================================
 		Init
@@ -59,6 +57,15 @@ class PageManager {
 	public static function onEnterKey():Void {
 
 		getCurrentPage().onEnterKey();
+
+	}
+
+	/* =======================================================================
+		On Keyup
+	========================================================================== */
+	public static function onKeyup():Void {
+
+		getCurrentPage().onKeyup();
 
 	}
 
