@@ -15,10 +15,8 @@ class Manager {
 	========================================================================== */
 	public static function init(event:Event):Void {
 
-		PopupWindow.init();
 		Storage.init();
 		Message.init();
-
 		EventManager.init();
 		PageManager.init();
 		setCloseButton();
@@ -34,7 +32,7 @@ class Manager {
 
 			Storage.get(function(data) {
 
-				PageManager.setView(data);
+				PageManager.set(data);
 				Message.send('on loaded','nice');
 
 			});

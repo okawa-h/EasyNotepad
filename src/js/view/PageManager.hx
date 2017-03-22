@@ -7,31 +7,36 @@ import view.page.*;
 
 class PageManager {
 
-	private static var _Pages : Map<String,Page>;
+	private static var _jParent : JQuery;
+	private static var _Pages   : Map<String,Page>;
 
 	/* =======================================================================
 		Init
 	========================================================================== */
 	public static function init():Void {
 
-		_Pages = new Map();
+		_jParent = new JQuery('#pages');
+		_Pages   = new Map();
 		_Pages['memo']    = new Memo();
 		_Pages['setting'] = new Setting();
 
-		new JQuery('[data-jump]').on('click',function(event:Event) {
+		new JQuery('[data-jump]').on({ 'click':onJumpButton });
 
-			hideAll();
-			var id : String = new JQuery(event.currentTarget).data('jump');
-			_Pages[id].show();
+	}
 
-		});
+	/* =======================================================================
+		Add HTML
+	========================================================================== */
+	public static function addHTML(html:String) {
+
+		_jParent.append(html);
 
 	}
 
 	/* =======================================================================
 		Set
 	========================================================================== */
-	public static function setView(data:Dynamic) {
+	public static function set(data:Dynamic) {
 
 		counter(function(page:Page) {
 			page.set(data);
@@ -107,6 +112,17 @@ class PageManager {
 				func(_Pages[key]);
 
 			}
+
+		}
+
+		/* =======================================================================
+			On Jump Button
+		========================================================================== */
+		private static function onJumpButton(event:Event):Void {
+
+			hideAll();
+			var pagename : String = new JQuery(event.currentTarget).data('jump');
+			_Pages[pagename].show();
 
 		}
 

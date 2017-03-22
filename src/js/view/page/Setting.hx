@@ -75,6 +75,30 @@ class Setting extends Page {
 	}
 
 		/* =======================================================================
+			Set HTML
+		========================================================================== */
+		private override function setHTML():Void {
+
+			var html : String = '
+				<section data-content="${_pagename}">
+					<header class="header">
+						<h2 class="page-title">Setting</h2>
+					</header>
+					<div class="content">
+						<ul class="setting-list">
+							<li><label><p>height</p><input type="text" name="height">px</label></li>
+							<li><label><p>font-size</p><input type="text" name="fontSize">px</label></li>
+						</ul>
+					</div>
+					<button class="button-save"><span>SAVE</span></button>
+					<button class="button-jump" data-jump="memo">&nbsp;</button>
+				</section>';
+
+			PageManager.addHTML(html);
+
+		}
+
+		/* =======================================================================
 			Get List Data
 		========================================================================== */
 		private function getListData():Dynamic {
@@ -123,7 +147,7 @@ class Setting extends Page {
 				case 'width':
 					new JQuery('#all').css({ width:value });
 				case 'height':
-					new JQuery('.inputarea').css({ height:value });
+					new JQuery('.content-area').css({ height:value });
 				case 'fontSize':
 					new JQuery('html').css({ fontSize:value + 'px' });
 			}

@@ -16,11 +16,17 @@ class Page {
 	public function new(pagename:String):Void {
 
 		_pagename = pagename;
-		_jParent  = new JQuery('[data-content="' + _pagename + '"]');
+		setHTML();
+		_jParent  = new JQuery('[data-content="${_pagename}"]');
 
 		_jParent.find('.button-save').on({ 'click':save });
 
 	}
+
+		/* =======================================================================
+			Set HTML
+		========================================================================== */
+		private function setHTML():Void {}
 
 	/* =======================================================================
 		Save

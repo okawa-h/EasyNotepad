@@ -23,7 +23,15 @@ html {
 
 .wrap {
 	position: relative;
-	padding: 2.5rem 2rem 2rem;
+	padding: 2.5rem;
+}
+
+#button-close {
+	position: absolute;
+	top: 2.5rem;
+	right: 2.5rem;
+	color: #bbb;
+	font-size: .8rem;
 }
 
 /*-------------------------------------------------------------------------
@@ -33,28 +41,38 @@ html {
 	margin-bottom: 1.4rem;
 }
 
-	.header .page-title {
+	.header .page-tab {
 		display: inline-block;
-		padding-left: 1.8rem;
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-position: left center;
+		margin-right: 1rem;
+		padding: 0 .5rem .5rem;
+		border-bottom: 2px solid transparent;
 		color: #888;
-		font-size: 1.2rem;
+		font-size: 1.1rem;
 		font-family: 'Roboto',arial,sans-serif;
 		letter-spacing: .1rem;
 	}
 
-		.header .page-title img {
-			margin-right: .5rem;
-		}
+	.header .page-tab.active {
+		border-bottom-color: #7f95d1;
+		color: #7f95d1;
+		cursor: text;
+	}
 
-[data-content="memo"] .header .page-title {
-	background-image: url('../img/icon/memo.png');
+	.header .page-title {
+		display: inline-block;
+		color: #888;
+		font-size: 1.1rem;
+		font-family: 'Roboto',arial,sans-serif;
+		letter-spacing: .1rem;
+	}
+
+.tab-navi {
+	float: left;
 }
 
-[data-content="setting"] .header .page-title {
-	background-image: url('../img/icon/setting.png');
+.tab-controler {
+	float: right;
+	margin-right: 2rem;
 }
 
 /*-------------------------------------------------------------------------
@@ -83,6 +101,11 @@ input[type="text"]:focus {
 	background-size: contain;
 	background-repeat: no-repeat;
 	font-size: .8rem;
+	transition: opacity .1s ease-in-out;
+}
+
+.button-jump:hover {
+	opacity: .8;
 }
 
 .button-jump[data-jump="setting"] {
@@ -120,7 +143,7 @@ input[type="text"]:focus {
 	border: 1px solid #4f68a8;
 }
 
-.button-url {
+.button-utils {
 	width: 7rem;
 	margin-right: 1rem;
 	padding: .4rem 1rem;
@@ -134,52 +157,64 @@ input[type="text"]:focus {
 	transition: all .1s ease-in-out;
 }
 
-.button-url:hover {
+.button-utils:hover {
 	background-color: #a0b4e5;
 }
 
-.button-url:active {
+.button-utils:active {
 	background-color: #4f68a8;
 	letter-spacing: .1rem;
 }
 
-.button-url:focus {
+.button-utils:focus {
 	border: 1px solid #4f68a8;
 }
 
-.button-time {
-	width: 7rem;
-	margin-right: 1rem;
-	padding: .4rem 1rem;
+.button-switch {
+	margin-right: .4rem;
+	padding: .4rem .8rem;
 	border: 1px solid #7f95d1;
 	border-radius: 2px;
 	background-color: #7f95d1;
 	color: #fff;
 	font-size: .8rem;
-	letter-spacing: .4rem;
+	text-align: center;
 	cursor: pointer;
 	transition: all .1s ease-in-out;
 }
 
-.button-time:hover {
+.button-switch:hover {
 	background-color: #a0b4e5;
 }
 
-.button-time:active {
+.button-switch:active {
 	background-color: #4f68a8;
-	letter-spacing: .1rem;
 }
 
-.button-time:focus {
+.button-switch:focus {
 	border: 1px solid #4f68a8;
+}
+
+/*-------------------------------------------------------------------------
+	Content
+/*-----------------------------------------------------------------------*/
+.content {
+	margin-bottom: 2rem;
 }
 
 /*-------------------------------------------------------------------------
 	Memo
 /*-----------------------------------------------------------------------*/
-.inputarea {
+[data-area_id] {
+	display: none;
+}
+
+[data-area_id].active {
+	display: block;
+}
+
+.content-area {
 	height: 20rem;
-	margin-bottom: 1rem;
 	border-radius: 2px;
 }
 
@@ -205,7 +240,6 @@ input[type="text"]:focus {
 	Setting
 /*-----------------------------------------------------------------------*/
 .setting-list {
-	margin-bottom: 3rem;
 }
 
 	.setting-list li {
@@ -236,8 +270,8 @@ input[type="text"]:focus {
 /*-----------------------------------------------------------------------*/
 #message {
 	position: absolute;
-	right: 2rem;
-	bottom: 2rem;
+	right: 4.5rem;
+	bottom: 2.5rem;
 	font-size: .8rem;
 }
 
@@ -256,12 +290,4 @@ input[type="text"]:focus {
 	#message p.success {
 		color: #a0b4e5;
 	}
-
-#button-close {
-	position: absolute;
-	top: 1rem;
-	right: 2rem;
-	color: #bbb;
-	font-size: .8rem;
-}
 
