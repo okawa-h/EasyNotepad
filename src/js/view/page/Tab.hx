@@ -86,6 +86,24 @@ class Tab {
 	}
 
 	/* =======================================================================
+		Is Active
+	========================================================================== */
+	public function isActive():Bool {
+
+		return _jTab.hasClass('active');
+
+	}
+
+	/* =======================================================================
+		Is Edit
+	========================================================================== */
+	public function isEdit():Bool {
+
+		return _jTab.hasClass('edit');
+
+	}
+
+	/* =======================================================================
 		Focus
 	========================================================================== */
 	public function focus():Void {
@@ -122,11 +140,33 @@ class Tab {
 	}
 
 	/* =======================================================================
-		Rename
+		Edit Name
 	========================================================================== */
-	public function rename(name):Void {
+	public function editName():Void {
 
-		_name = name;
+		var name   : String = _jTab.text();
+		var jInput : JQuery = _jTab
+			.addClass('edit')
+			.html('<input class="edit-name" type="text">')
+			.find('.edit-name');
+
+		jInput
+			.focus()
+			.val(name)
+			.on('blur',function() {
+
+				var value : String = jInput.val();
+				if (value == '') {
+					jInput.focus();
+					Message.send('name is empty','error');
+					return;
+				}
+
+				_jTab.removeClass('edit').html(value);
+				_name = value;
+				MemoManager.save();
+
+			});
 
 	}
 

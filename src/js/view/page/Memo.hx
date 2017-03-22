@@ -8,18 +8,13 @@ import utils.*;
 
 class Memo extends Page {
 
-
 	/* =======================================================================
 		Init
 	========================================================================== */
 	public override function new():Void {
 
 		super('memo');
-		MemoManager.init(_jParent);
-
-		_jParent.find('[data-add]').on('click',function(event) {
-			MemoManager.setAddButton(event,save);
-		});
+		MemoManager.init(_jParent,_pagename);
 
 	}
 
@@ -28,8 +23,7 @@ class Memo extends Page {
 	========================================================================== */
 	public override function save():Void {
 
-		Storage.save(_pagename,MemoManager.getData());
-		focus();
+		MemoManager.save();
 
 	}
 

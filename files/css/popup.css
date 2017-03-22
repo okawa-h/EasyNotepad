@@ -50,12 +50,18 @@ html {
 		font-size: 1.1rem;
 		font-family: 'Roboto',arial,sans-serif;
 		letter-spacing: .1rem;
+		line-height: 1rem;
 	}
 
 	.header .page-tab.active {
 		border-bottom-color: #7f95d1;
 		color: #7f95d1;
 		cursor: text;
+	}
+
+	.header .page-tab.edit {
+		padding: 0;
+		font-size: 1rem;
 	}
 
 	.header .page-title {
@@ -78,14 +84,25 @@ html {
 /*-------------------------------------------------------------------------
 	Input
 /*-----------------------------------------------------------------------*/
-input[type="text"] {
+.edit-name {
+	padding: .3rem .5rem .2rem;
+	border: none;
+	font-size: 1rem;
+	transition: background-color .1s ease-in-out;
+}
+
+.edit-name:focus {
+	background-color: #f3f3f3;
+}
+
+.input-setting {
 	padding: .3rem .4rem;
 	border: none;
 	font-size: 1rem;
 	transition: background-color .1s ease-in-out;
 }
 
-input[type="text"]:focus {
+.input-setting:focus {
 	background-color: #f3f3f3;
 }
 
@@ -270,8 +287,8 @@ input[type="text"]:focus {
 /*-----------------------------------------------------------------------*/
 #message {
 	position: absolute;
-	right: 4.5rem;
-	bottom: 2.5rem;
+	right: 4.6rem;
+	bottom: 3rem;
 	font-size: .8rem;
 }
 

@@ -389,18 +389,13 @@ view_PopupWindow.close = function() {
 	view_PopupWindow._window.close();
 };
 var view_page_Memo = function() {
-	var _gthis = this;
 	view_Page.call(this,"memo");
-	view_page_MemoManager.init(this._jParent);
-	this._jParent.find("[data-add]").on("click",null,function(event) {
-		view_page_MemoManager.setAddButton(event,$bind(_gthis,_gthis.save));
-	});
+	view_page_MemoManager.init(this._jParent,this._pagename);
 };
 view_page_Memo.__super__ = view_Page;
 view_page_Memo.prototype = $extend(view_Page.prototype,{
 	save: function() {
-		utils_Storage.save(this._pagename,view_page_MemoManager.getData());
-		this.focus();
+		view_page_MemoManager.save();
 	}
 	,set: function(data) {
 		var dataArray = view_Page.prototype.getData.call(this,data);
@@ -421,12 +416,20 @@ view_page_Memo.prototype = $extend(view_Page.prototype,{
 	}
 });
 var view_page_MemoManager = function() { };
-view_page_MemoManager.init = function(jParent) {
+view_page_MemoManager.init = function(jParent,pagename) {
+	view_page_MemoManager._pagename = pagename;
 	view_page_MemoManager._jParent = jParent;
 	view_page_MemoManager._jNavi = view_page_MemoManager._jParent.find(".tab-navi");
 	view_page_MemoManager._jContent = view_page_MemoManager._jParent.find(".content");
 	view_page_MemoManager._Tabs = new haxe_ds_StringMap();
+	view_page_MemoManager._jParent.find("[data-add]").on("click",null,function(event) {
+		view_page_MemoManager.setAddButton(event);
+	});
 	view_page_TabControler.init(view_page_MemoManager._jParent);
+};
+view_page_MemoManager.save = function() {
+	utils_Storage.save(view_page_MemoManager._pagename,view_page_MemoManager.getData());
+	view_page_MemoManager.focus();
 };
 view_page_MemoManager.set = function(data) {
 	var _g1 = 0;
@@ -452,38 +455,29 @@ view_page_MemoManager.focus = function() {
 view_page_MemoManager.setTabButton = function() {
 	view_page_MemoManager._jNavi.find(".page-tab").off().on("click",null,function(event) {
 		var jTarget = $(event.currentTarget);
-		if(jTarget.hasClass("edit")) {
+		var id = jTarget.data("area_tab");
+		var _this = view_page_MemoManager._Tabs;
+		var tab = __map_reserved[id] != null ? _this.getReserved(id) : _this.h[id];
+		if(tab.isEdit()) {
 			return;
 		}
-		if(jTarget.hasClass("active")) {
-			var jInput = jTarget.addClass("edit").html("<input class=\"edit-name\" type=\"text\">").find(".edit-name");
-			jInput.focus();
-			jInput.on({ "blur" : function() {
-				var value = jInput.val();
-				if(value == "") {
-					jInput.focus();
-					return;
-				}
-				jInput.remove();
-				jTarget.text(value);
-			}});
+		if(tab.isActive()) {
+			tab.editName();
 			return;
 		}
 		view_page_MemoManager.hideAll();
-		var id = jTarget.addClass("active").data("area_tab");
-		var _this = view_page_MemoManager._Tabs;
-		(__map_reserved[id] != null ? _this.getReserved(id) : _this.h[id]).show();
+		tab.show();
 		view_page_MemoManager.focus();
 	});
 };
-view_page_MemoManager.setAddButton = function(event,callback) {
+view_page_MemoManager.setAddButton = function(event) {
 	var key = $(event.currentTarget).data("add");
 	switch(key) {
 	case "time":
-		view_page_MemoManager.addTime(callback);
+		view_page_MemoManager.addTime();
 		break;
 	case "url":
-		view_page_MemoManager.addUrl(callback);
+		view_page_MemoManager.addUrl();
 		break;
 	}
 };
@@ -545,7 +539,7 @@ view_page_MemoManager.hideAll = function() {
 		tab.hide();
 	});
 };
-view_page_MemoManager.addUrl = function(callback) {
+view_page_MemoManager.addUrl = function() {
 	utils_ContactTab.get("url",function(response) {
 		var text = "";
 		var tmp;
@@ -601,10 +595,10 @@ view_page_MemoManager.addUrl = function(callback) {
 			text += location2;
 		}
 		view_page_MemoManager.getActiveTab().addText(text);
-		callback();
+		view_page_MemoManager.save();
 	});
 };
-view_page_MemoManager.addTime = function(callback) {
+view_page_MemoManager.addTime = function() {
 	var date = new Date();
 	var year = date.getFullYear();
 	var month = date.getMonth() + 1;
@@ -612,7 +606,7 @@ view_page_MemoManager.addTime = function(callback) {
 	var hour = date.getHours();
 	var minute = date.getMinutes();
 	view_page_MemoManager.getActiveTab().addText("【" + year + "/" + month + "/" + day + "/" + hour + ":" + minute + "】");
-	callback();
+	view_page_MemoManager.save();
 };
 view_page_MemoManager.counter = function(func) {
 	var key = view_page_MemoManager._Tabs.keys();
@@ -624,7 +618,7 @@ view_page_MemoManager.counter = function(func) {
 };
 var view_page_Setting = function() {
 	view_Page.call(this,"setting");
-	view_page_Setting._jSettingList = this._jParent.find(".setting-list").find("input[type=\"text\"]");
+	view_page_Setting._jSettingList = this._jParent.find(".setting-list").find(".input-setting");
 };
 view_page_Setting.__super__ = view_Page;
 view_page_Setting.prototype = $extend(view_Page.prototype,{
@@ -656,7 +650,7 @@ view_page_Setting.prototype = $extend(view_Page.prototype,{
 		}
 	}
 	,setHTML: function() {
-		var html = "\n\t\t\t\t<section data-content=\"" + this._pagename + "\">\n\t\t\t\t\t<header class=\"header\">\n\t\t\t\t\t\t<h2 class=\"page-title\">Setting</h2>\n\t\t\t\t\t</header>\n\t\t\t\t\t<div class=\"content\">\n\t\t\t\t\t\t<ul class=\"setting-list\">\n\t\t\t\t\t\t\t<li><label><p>height</p><input type=\"text\" name=\"height\">px</label></li>\n\t\t\t\t\t\t\t<li><label><p>font-size</p><input type=\"text\" name=\"fontSize\">px</label></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button class=\"button-save\"><span>SAVE</span></button>\n\t\t\t\t\t<button class=\"button-jump\" data-jump=\"memo\">&nbsp;</button>\n\t\t\t\t</section>";
+		var html = "\n\t\t\t\t<section data-content=\"" + this._pagename + "\">\n\t\t\t\t\t<header class=\"header\">\n\t\t\t\t\t\t<h2 class=\"page-title\">Setting</h2>\n\t\t\t\t\t</header>\n\t\t\t\t\t<div class=\"content\">\n\t\t\t\t\t\t<ul class=\"setting-list\">\n\t\t\t\t\t\t\t<li><label><p>height</p><input class=\"input-setting\" type=\"text\" name=\"height\">px</label></li>\n\t\t\t\t\t\t\t<li><label><p>font-size</p><input class=\"input-setting\" type=\"text\" name=\"fontSize\">px</label></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button class=\"button-save\"><span>SAVE</span></button>\n\t\t\t\t\t<button class=\"button-jump\" data-jump=\"memo\">&nbsp;</button>\n\t\t\t\t</section>";
 		view_PageManager.addHTML(html);
 	}
 	,getListData: function() {
@@ -755,6 +749,12 @@ view_page_Tab.prototype = {
 	,isFocus: function() {
 		return this._jTextarea["is"](":focus");
 	}
+	,isActive: function() {
+		return this._jTab.hasClass("active");
+	}
+	,isEdit: function() {
+		return this._jTab.hasClass("edit");
+	}
 	,focus: function() {
 		this._jTextarea.focus();
 	}
@@ -767,8 +767,21 @@ view_page_Tab.prototype = {
 	,remove: function() {
 		this._jTab.add(this._jTextarea.parent()).remove();
 	}
-	,rename: function(name) {
-		this._name = name;
+	,editName: function() {
+		var _gthis = this;
+		var name = this._jTab.text();
+		var jInput = this._jTab.addClass("edit").html("<input class=\"edit-name\" type=\"text\">").find(".edit-name");
+		jInput.focus().val(name).on("blur",null,function() {
+			var value = jInput.val();
+			if(value == "") {
+				jInput.focus();
+				utils_Message.send("name is empty","error");
+				return;
+			}
+			_gthis._jTab.removeClass("edit").html(value);
+			_gthis._name = value;
+			view_page_MemoManager.save();
+		});
 	}
 	,addText: function(text) {
 		var value = this.getValue();
@@ -817,7 +830,7 @@ view_page_TabControler.onClick = function(event) {
 	}
 };
 view_page_TabControler.increment = function() {
-	view_page_MemoManager.addTab({ id : utils_Handy.getUniqueID(), name : "test", value : ""});
+	view_page_MemoManager.addTab({ id : utils_Handy.getUniqueID(), name : "Memo", value : ""});
 	utils_Message.send("add tab","success");
 };
 view_page_TabControler.decrement = function() {

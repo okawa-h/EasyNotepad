@@ -8,6 +8,7 @@ import utils.*;
 
 class MemoManager {
 
+	private static var _pagename: String;
 	private static var _jParent : JQuery;
 	private static var _jNavi   : JQuery;
 	private static var _jContent: JQuery;
@@ -16,14 +17,28 @@ class MemoManager {
 	/* =======================================================================
 		Init
 	========================================================================== */
-	public static function init(jParent:JQuery):Void {
+	public static function init(jParent:JQuery,pagename:String):Void {
 
-		_jParent = jParent;
-		_jNavi   = _jParent.find('.tab-navi');
-		_jContent= _jParent.find('.content');
-		_Tabs    = new Map();
+		_pagename = pagename;
+		_jParent  = jParent;
+		_jNavi    = _jParent.find('.tab-navi');
+		_jContent = _jParent.find('.content');
+		_Tabs     = new Map();
 
+		_jParent.find('[data-add]').on('click',function(event) {
+			setAddButton(event);
+		});
 		TabControler.init(_jParent);
+
+	}
+
+	/* =======================================================================
+		Save
+	========================================================================== */
+	public static function save():Void {
+
+		Storage.save(_pagename,getData());
+		focus();
 
 	}
 
@@ -61,33 +76,19 @@ class MemoManager {
 			_jNavi.find('.page-tab').off().on('click',function(event:Event) {
 
 				var jTarget : JQuery = new JQuery(event.currentTarget);
+				var id      : String = jTarget.data('area_tab');
+				var tab     : Tab    = _Tabs[id];
 
-				if (jTarget.hasClass('edit')) return;
+				if (tab.isEdit()) return;
 
-				if (jTarget.hasClass('active')) {
-					var jInput : JQuery = jTarget
-						.addClass('edit')
-						.html('<input class="edit-name" type="text">')
-						.find('.edit-name');
-					jInput.focus();
-					jInput.on({ 'blur':function() {
+				if (tab.isActive()) {
 
-						var value : String = jInput.val();
-						if (value == '') {
-							jInput.focus();
-							return;
-						}
-
-						jInput.remove();
-						jTarget.text(value);
-
-					}});
+					tab.editName();
 					return;
 				}
 
 				hideAll();
-				var id : String = jTarget.addClass('active').data('area_tab');
-				_Tabs[id].show();
+				tab.show();
 				focus();
 
 			});
@@ -97,14 +98,14 @@ class MemoManager {
 	/* =======================================================================
 		Set Add Button
 	========================================================================== */
-	public static function setAddButton(event:Event,callback:Void->Void):Void {
+	public static function setAddButton(event:Event):Void {
 
 		var key : String = new JQuery(event.currentTarget).data('add');
 		switch (key) {
 			case 'url':
-				addUrl(callback);
+				addUrl();
 			case 'time':
-				addTime(callback);
+				addTime();
 		}
 
 	}
@@ -223,7 +224,7 @@ class MemoManager {
 		/* =======================================================================
 			Add Url
 		========================================================================== */
-		private static function addUrl(callback:Void->Void):Void {
+		private static function addUrl():Void {
 
 			ContactTab.get('url',function(response:Dynamic) {
 
@@ -249,7 +250,7 @@ class MemoManager {
 				}
 
 				getActiveTab().addText(text);
-				callback();
+				save();
 
 			});
 
@@ -258,7 +259,7 @@ class MemoManager {
 		/* =======================================================================
 			Add Time
 		========================================================================== */
-		private static function addTime(callback:Void->Void):Void {
+		private static function addTime():Void {
 
 			var date  : Date = Date.now();
 			var year  : Int = date.getFullYear();
@@ -268,7 +269,7 @@ class MemoManager {
 			var minute: Int = date.getMinutes();
 
 			getActiveTab().addText('【${year}/${month}/${day}/${hour}:${minute}】');
-			callback();
+			save();
 
 		}
 

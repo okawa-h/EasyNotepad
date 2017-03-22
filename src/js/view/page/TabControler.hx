@@ -43,7 +43,7 @@ class TabControler {
 
 			MemoManager.addTab({
 				id   : Handy.getUniqueID(),
-				name : 'test',
+				name : 'Memo',
 				value: ''
 			});
 

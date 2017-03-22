@@ -14,7 +14,7 @@ class Setting extends Page {
 	public override function new():Void {
 
 		super('setting');
-		_jSettingList = _jParent.find('.setting-list').find('input[type="text"]');
+		_jSettingList = _jParent.find('.setting-list').find('.input-setting');
 
 	}
 
@@ -86,8 +86,8 @@ class Setting extends Page {
 					</header>
 					<div class="content">
 						<ul class="setting-list">
-							<li><label><p>height</p><input type="text" name="height">px</label></li>
-							<li><label><p>font-size</p><input type="text" name="fontSize">px</label></li>
+							<li><label><p>height</p><input class="input-setting" type="text" name="height">px</label></li>
+							<li><label><p>font-size</p><input class="input-setting" type="text" name="fontSize">px</label></li>
 						</ul>
 					</div>
 					<button class="button-save"><span>SAVE</span></button>
