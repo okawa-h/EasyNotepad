@@ -43,6 +43,7 @@ html {
 
 	.header .page-tab {
 		display: inline-block;
+		margin-top: 1rem;
 		margin-right: 1rem;
 		padding: 0 .5rem .5rem;
 		border-bottom: 2px solid transparent;
@@ -74,11 +75,14 @@ html {
 
 .tab-navi {
 	float: left;
+	width: 78%;
+	margin-top: -1rem;
 }
 
 .tab-controler {
 	float: right;
-	margin-right: 2rem;
+	width: 17%;
+	margin-right: 5%;
 }
 
 /*-------------------------------------------------------------------------
@@ -308,3 +312,49 @@ html {
 		color: #a0b4e5;
 	}
 
+/*-------------------------------------------------------------------------
+	Modalwindow
+/*-----------------------------------------------------------------------*/
+#modalwindow {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+	#modalwindow .background {
+		width: 100%;
+		height: 100%;
+		background-color: rgba(255,255,255,.6);
+	}
+
+.modalwindow-content {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	width: 60%;
+	margin: auto;
+	border: 1px solid #7f95d1;
+	border-radius: 2px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	background-color: #fff;
+}
+
+	.modalwindow-field {
+		padding: 2rem;
+	}
+
+	.modalwindow-content .title {
+		font-size: 1.2rem;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.modalwindow-content .text {
+		font-size: 1rem;
+		text-align: center;
+	}
