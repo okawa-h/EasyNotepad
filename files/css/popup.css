@@ -331,9 +331,7 @@ html {
 	}
 
 .modalwindow-content {
-	display: none;
 	position: absolute;
-	top: 50%;
 	left: 0;
 	right: 0;
 	width: 60%;
@@ -344,11 +342,20 @@ html {
 	background-color: #fff;
 }
 
+	.modalwindow-content .button-close {
+		position: absolute;
+		top: 1.5rem;
+		right: 1.5rem;
+		color: #bbb;
+		font-size: .8rem;
+	}
+
 	.modalwindow-field {
 		padding: 2rem;
 	}
 
 	.modalwindow-content .title {
+		margin-bottom: 1.5rem;
 		font-size: 1.2rem;
 		font-weight: bold;
 		text-align: center;

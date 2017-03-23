@@ -33,18 +33,20 @@ class Memo extends Page {
 	public override function set(data:Dynamic):Void {
 
 		var dataArray : Array<Dynamic> = super.getData(data);
-		MemoManager.set(dataArray);
+		if (dataArray == null) {
+			dataArray = [{
+				id   : 1,
+				name : 'Memo',
+				value: 'ここにテキストを入力してください'
+			}];
 
-		// var testData = [{
-		// 	id   : 1,
-		// 	name : 'Memo',
-		// 	value: '1これはMemo'
-		// },{
-		// 	id   : 2,
-		// 	name : 'Git',
-		// 	value: '2これはMemo'
-		// }];
-		// Storage.save(_pagename,testData);
+			Modalwindow.ask({
+				title:'はじめまして',
+				text:'これはシンプルで最強のメモ帳です。'
+			});
+		}
+
+		MemoManager.set(dataArray);
 
 	}
 

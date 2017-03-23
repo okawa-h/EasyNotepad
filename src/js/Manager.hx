@@ -17,6 +17,7 @@ class Manager {
 
 		Storage.init();
 		Message.init();
+		Modalwindow.init();
 		EventManager.init();
 		PageManager.init();
 		setCloseButton();

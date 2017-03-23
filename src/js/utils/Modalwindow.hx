@@ -2,10 +2,14 @@ package utils;
 
 import js.jquery.JQuery;
 import js.jquery.Event;
+import view.PopupWindow;
 
 class Modalwindow {
 
 	private static var _jParent : JQuery;
+	private static var _jBg     : JQuery;
+	private static var _jContent: JQuery;
+	private static var _jField  : JQuery;
 
 	/* =======================================================================
 		Init
@@ -13,16 +17,67 @@ class Modalwindow {
 	public static function init():Void {
 
 		_jParent = new JQuery('#modalwindow');
-
-		_jParent.find('.background').on({ 'click':close });
 		setHTML();
 
+		_jBg      = _jParent.find('.background');
+		_jContent = _jParent.find('.modalwindow-content');
+		_jField   = _jParent.find('.modalwindow-field');
+		_jBg.on({ 'click':onClickBg });
+		_jParent.find('.button-close').on({ 'click':close });
+
 	}
+
+	/* =======================================================================
+		Ask
+	========================================================================== */
+	public static function ask(message:{title:String,text:String}):Void {
+
+		var html : String =
+			'<p class="title">${message.title}</p>
+			<p class="text">${message.text}</p>';
+		_jField.html(html);
+		open();
+
+	}
+
+		/* =======================================================================
+			On Click Bg
+		========================================================================== */
+		private static function onClickBg(event:Event):Void {
+
+			if (!new JQuery(event.target).hasClass('background')) return;
+			close();
+
+		}
+
+		/* =======================================================================
+			Open
+		========================================================================== */
+		private static function open():Void {
+
+			_jParent.show();
+
+			var h   : Float = _jContent.height();
+			var winH: Float = PopupWindow.getHeight();
+			var posi: Float = (winH - h) * .5;
+			_jBg.css({ opacity:0 }).animate({ opacity:1 },200);
+			_jContent
+				.css({ top:posi + 10,opacity:0 })
+				.animate({ top:posi,opacity:1 },200);
+
+		}
 
 		/* =======================================================================
 			Close
 		========================================================================== */
 		private static function close():Void {
+
+			_jBg.animate({ opacity:0 },200,function() {
+
+				_jParent.hide();
+
+			});
+
 		}
 
 		/* =======================================================================
@@ -33,10 +88,8 @@ class Modalwindow {
 			_jParent.append('
 				<div class="background">
 					<div class="modalwindow-content">
-						<div class="modalwindow-field">
-							<p class="title">てすと</p>
-							<p class="text">message.</p>
-						</div>
+						<div class="modalwindow-field"></div>
+						<button class="button-close">×</button>
 					</div>
 				</div>');
 

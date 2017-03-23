@@ -2,8 +2,9 @@ package view.page;
 
 import js.jquery.JQuery;
 import js.jquery.Event;
-import utils.Message;
 import utils.Handy;
+import utils.Message;
+import utils.Modalwindow;
 import view.page.*;
 
 class TabControler {
@@ -56,9 +57,13 @@ class TabControler {
 		========================================================================== */
 		private static function decrement():Void {
 
-			MemoManager.removeTab();
 
-			Message.send('remove tab','success');
+			Modalwindow.ask({
+				title:'タブを削除します',
+				text:'削除してもよろしいですか?'
+			});
+			// MemoManager.removeTab();
+			// Message.send('remove tab','success');
 
 		}
 

@@ -141,14 +141,13 @@ class Setting extends Page {
 		========================================================================== */
 		private function setStyle(key:String,value:String):Void {
 
-			if (value == '') return;
-
 			switch(key) {
 				case 'width':
 					new JQuery('#all').css({ width:value });
 				case 'height':
 					new JQuery('.content-area').css({ height:value });
 				case 'fontSize':
+					if (value == '') value = '16';
 					new JQuery('html').css({ fontSize:value + 'px' });
 			}
 
