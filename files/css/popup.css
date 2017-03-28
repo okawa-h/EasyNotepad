@@ -355,7 +355,7 @@ html {
 	}
 
 	.modalwindow-content .title {
-		margin-bottom: 1.5rem;
+		margin-bottom: .5rem;
 		font-size: 1.2rem;
 		font-weight: bold;
 		text-align: center;
@@ -365,3 +365,14 @@ html {
 		font-size: 1rem;
 		text-align: center;
 	}
+
+	.modalwindow-content .judge {
+		margin-top: 2rem;
+		text-align: center;
+	}
+
+		.modalwindow-content .judge button {
+			margin: 0 1rem;
+			padding: .2rem 1rem;
+			font-size: 1rem;
+		}

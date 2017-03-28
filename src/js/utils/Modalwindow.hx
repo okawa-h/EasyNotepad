@@ -30,12 +30,29 @@ class Modalwindow {
 	/* =======================================================================
 		Ask
 	========================================================================== */
-	public static function ask(message:{title:String,text:String}):Void {
+	public static function ask(message:{title:String,text:String},?callback:Void->Void):Void {
 
 		var html : String =
 			'<p class="title">${message.title}</p>
 			<p class="text">${message.text}</p>';
+
 		_jField.html(html);
+		if (callback != null) {
+
+			_jField
+				.append(getJudgeButtonHTML())
+				.find('.judge')
+				.off()
+				.on('click','button',function(event:Event) {
+
+					var action : Bool = new JQuery(event.currentTarget).data('action');
+					if (action) callback();
+					close();
+
+				});
+
+		}
+
 		open();
 
 	}
@@ -92,6 +109,19 @@ class Modalwindow {
 						<button class="button-close">×</button>
 					</div>
 				</div>');
+
+		}
+
+		/* =======================================================================
+			Get Judge Button HTML
+		========================================================================== */
+		private static function getJudgeButtonHTML():String {
+
+			return 
+				'<div class="judge">
+					<button data-action="true">Yes</button>
+					<button data-action="false">No</button>
+				</div>';
 
 		}
 

@@ -59,11 +59,16 @@ class TabControler {
 
 
 			Modalwindow.ask({
+
 				title:'タブを削除します',
 				text:'削除してもよろしいですか?'
+				
+			},function():Void {
+
+				MemoManager.removeTab();
+				Message.send('remove tab','success');
+
 			});
-			// MemoManager.removeTab();
-			// Message.send('remove tab','success');
 
 		}
 

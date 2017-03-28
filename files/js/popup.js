@@ -234,9 +234,18 @@ utils_Modalwindow.init = function() {
 	utils_Modalwindow._jBg.on({ "click" : utils_Modalwindow.onClickBg});
 	utils_Modalwindow._jParent.find(".button-close").on({ "click" : utils_Modalwindow.close});
 };
-utils_Modalwindow.ask = function(message) {
+utils_Modalwindow.ask = function(message,callback) {
 	var html = "<p class=\"title\">" + message.title + "</p>\n\t\t\t<p class=\"text\">" + message.text + "</p>";
 	utils_Modalwindow._jField.html(html);
+	if(callback != null) {
+		utils_Modalwindow._jField.append(utils_Modalwindow.getJudgeButtonHTML()).find(".judge").off().on("click","button",function(event) {
+			var action = $(event.currentTarget).data("action");
+			if(action) {
+				callback();
+			}
+			utils_Modalwindow.close();
+		});
+	}
 	utils_Modalwindow.open();
 };
 utils_Modalwindow.onClickBg = function(event) {
@@ -260,6 +269,9 @@ utils_Modalwindow.close = function() {
 };
 utils_Modalwindow.setHTML = function() {
 	utils_Modalwindow._jParent.append("\n\t\t\t\t<div class=\"background\">\n\t\t\t\t\t<div class=\"modalwindow-content\">\n\t\t\t\t\t\t<div class=\"modalwindow-field\"></div>\n\t\t\t\t\t\t<button class=\"button-close\">×</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>");
+};
+utils_Modalwindow.getJudgeButtonHTML = function() {
+	return "<div class=\"judge\">\n\t\t\t\t\t<button data-action=\"true\">Yes</button>\n\t\t\t\t\t<button data-action=\"false\">No</button>\n\t\t\t\t</div>";
 };
 var utils_Storage = function() { };
 utils_Storage.init = function() {
@@ -799,7 +811,10 @@ view_page_TabControler.increment = function() {
 	utils_Message.send("add tab","success");
 };
 view_page_TabControler.decrement = function() {
-	utils_Modalwindow.ask({ title : "タブを削除します", text : "削除してもよろしいですか?"});
+	utils_Modalwindow.ask({ title : "タブを削除します", text : "削除してもよろしいですか?"},function() {
+		view_page_MemoManager.removeTab();
+		utils_Message.send("remove tab","success");
+	});
 };
 function $iterator(o) { if( o instanceof Array ) return function() { return HxOverrides.iter(o); }; return typeof(o.iterator) == 'function' ? $bind(o,o.iterator) : o.iterator; }
 var $_, $fid = 0;
