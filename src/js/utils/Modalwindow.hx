@@ -22,107 +22,102 @@ class Modalwindow {
 		_jBg      = _jParent.find('.background');
 		_jContent = _jParent.find('.modalwindow-content');
 		_jField   = _jParent.find('.modalwindow-field');
+		
 		_jBg.on({ 'click':onClickBg });
 		_jParent.find('.button-close').on({ 'click':close });
 
 	}
 
-	/* =======================================================================
-		Ask
-	========================================================================== */
-	public static function ask(message:{title:String,text:String},?callback:Void->Void):Void {
+		/* =======================================================================
+			Ask
+		========================================================================== */
+		public static function ask(message:{title:String,text:String},?callback:Void->Void):Void {
 
-		var html : String =
-			'<p class="title">${message.title}</p>
-			<p class="text">${message.text}</p>';
+			var html : String =
+				'<p class="title">${message.title}</p>
+				<p class="text">${message.text}</p>';
 
-		_jField.html(html);
-		if (callback != null) {
+			_jField.html(html);
+			if (callback != null) {
 
-			_jField
-				.append(getJudgeButtonHTML())
-				.find('.judge')
-				.off()
-				.on('click','button',function(event:Event) {
+				_jField
+					.append(getJudgeButtonHTML())
+					.find('.judge')
+					.off()
+					.on('click','button',function(event:Event) {
 
-					var action : Bool = new JQuery(event.currentTarget).data('action');
-					if (action) callback();
-					close();
+						var action : Bool = new JQuery(event.currentTarget).data('action');
+						if (action) callback();
+						close();
 
-				});
+					});
+
+			}
+
+			open();
 
 		}
 
-		open();
+	/* =======================================================================
+		Open
+	========================================================================== */
+	private static function open():Void {
+
+		_jParent.show();
+
+		var top : Float = _jContent.height() * .5;
+		_jBg.css({ opacity:0 }).animate({ opacity:1 },200);
+		_jContent
+			.css({ top:'50%',opacity:0 })
+			.animate({ marginTop:-top,opacity:1 },200);
 
 	}
 
-		/* =======================================================================
-			On Click Bg
-		========================================================================== */
-		private static function onClickBg(event:Event):Void {
+	/* =======================================================================
+		Close
+	========================================================================== */
+	private static function close():Void {
 
-			if (!new JQuery(event.target).hasClass('background')) return;
-			close();
+		_jBg.animate({ opacity:0 },200,_jParent.hide);
 
-		}
+	}
 
-		/* =======================================================================
-			Open
-		========================================================================== */
-		private static function open():Void {
+	/* =======================================================================
+		On Click Bg
+	========================================================================== */
+	private static function onClickBg(event:Event):Void {
 
-			_jParent.show();
+		if (!new JQuery(event.target).hasClass('background')) return;
+		close();
 
-			var h   : Float = _jContent.height();
-			var winH: Float = PopupWindow.getHeight();
-			var posi: Float = (winH - h) * .5;
-			_jBg.css({ opacity:0 }).animate({ opacity:1 },200);
-			_jContent
-				.css({ top:posi + 10,opacity:0 })
-				.animate({ top:posi,opacity:1 },200);
+	}
 
-		}
+	/* =======================================================================
+		Set HTML
+	========================================================================== */
+	private static function setHTML():Void {
 
-		/* =======================================================================
-			Close
-		========================================================================== */
-		private static function close():Void {
+		_jParent.append(
+			'<div class="background">
+				<div class="modalwindow-content">
+					<div class="modalwindow-field"></div>
+					<button class="button-close">×</button>
+				</div>
+			</div>');
 
-			_jBg.animate({ opacity:0 },200,function() {
+	}
 
-				_jParent.hide();
+	/* =======================================================================
+		Get Judge Button HTML
+	========================================================================== */
+	private static function getJudgeButtonHTML():String {
 
-			});
+		return 
+			'<div class="judge">
+				<button data-action="true">Yes</button>
+				<button data-action="false">No</button>
+			</div>';
 
-		}
-
-		/* =======================================================================
-			Set HTML
-		========================================================================== */
-		private static function setHTML():Void {
-
-			_jParent.append('
-				<div class="background">
-					<div class="modalwindow-content">
-						<div class="modalwindow-field"></div>
-						<button class="button-close">×</button>
-					</div>
-				</div>');
-
-		}
-
-		/* =======================================================================
-			Get Judge Button HTML
-		========================================================================== */
-		private static function getJudgeButtonHTML():String {
-
-			return 
-				'<div class="judge">
-					<button data-action="true">Yes</button>
-					<button data-action="false">No</button>
-				</div>';
-
-		}
+	}
 
 }

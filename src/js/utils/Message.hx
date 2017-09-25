@@ -1,7 +1,6 @@
 package utils;
 
 import js.jquery.JQuery;
-import js.jquery.Event;
 
 class Message {
 
@@ -16,27 +15,25 @@ class Message {
 
 	}
 
-	/* =======================================================================
-		Send
-	========================================================================== */
-	public static function send(message:String,status:String):Void {
+		/* =======================================================================
+			Send
+		========================================================================== */
+		public static function say(text:String,status:String):Void {
 
-		var jText : JQuery = _jParent
-			.empty()
-			.append('<p class="' + status + '">' + message + '</p>')
-			.find('p');
+			var jText : JQuery = new JQuery('<p class="${status}">${text}</p>');
+			_jParent.empty().append(jText);
 
-		jText
-			.css({ top:5,opacity:0 })
-			.animate({ top:0,opacity:1 },100,'easeInOutSine',
-				function() {
-					jText
-						.delay(1500)
-						.animate({ opacity:0 },200,function() {
-							jText.remove();
-						});
-				});
+			jText
+				.css({ top:5,opacity:0 })
+				.animate({ top:0,opacity:1 },100,'easeInOutSine',
+					function() {
+						jText
+							.delay(1500)
+							.animate({ opacity:0 },200,function() {
+								jText.remove();
+							});
+					});
 
-	}
+		}
 
 }

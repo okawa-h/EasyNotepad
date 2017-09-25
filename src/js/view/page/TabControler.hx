@@ -21,55 +21,55 @@ class TabControler {
 
 	}
 
-		/* =======================================================================
-			On Click
-		========================================================================== */
-		private static function onClick(event:Event):Void {
+	/* =======================================================================
+		On Click
+	========================================================================== */
+	private static function onClick(event:Event):Void {
 
-			var action : String = new JQuery(event.currentTarget).data('switch');
+		var action : String = new JQuery(event.currentTarget).data('switch');
 
-			switch (action) {
-				case 'increment':
-					increment();
-				case 'decrement':
-					decrement();
-			}
-
+		switch (action) {
+			case 'increment':
+				increment();
+			case 'decrement':
+				decrement();
 		}
 
-		/* =======================================================================
-			Increment
-		========================================================================== */
-		private static function increment():Void {
+	}
 
-			MemoManager.addTab({
-				id   : Handy.getUniqueID(),
-				name : 'Memo',
-				value: ''
-			});
+	/* =======================================================================
+		Increment
+	========================================================================== */
+	private static function increment():Void {
 
-			Message.send('add tab','success');
+		MemoManager.addTab({
+			id   : Handy.getUniqueID(),
+			name : 'Note',
+			value: ''
+		});
 
-		}
+		Message.say('add tab','success');
 
-		/* =======================================================================
-			decrement
-		========================================================================== */
-		private static function decrement():Void {
+	}
+
+	/* =======================================================================
+		decrement
+	========================================================================== */
+	private static function decrement():Void {
 
 
-			Modalwindow.ask({
+		Modalwindow.ask({
 
-				title:'タブを削除します',
-				text:'削除してもよろしいですか?'
-				
-			},function():Void {
+			title : 'Delete note',
+			text  : 'Can I delete it?'
+			
+		},function():Void {
 
-				MemoManager.removeTab();
-				Message.send('remove tab','success');
+			MemoManager.removeTab();
+			Message.say('remove tab','success');
 
-			});
+		});
 
-		}
+	}
 
 }

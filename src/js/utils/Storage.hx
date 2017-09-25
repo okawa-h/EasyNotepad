@@ -1,6 +1,6 @@
 package utils;
 
-import Manager.APP_NAME;
+import Main.APP_NAME;
 import js.jquery.JQuery;
 import utils.*;
 
@@ -17,42 +17,39 @@ class Storage {
 
 	}
 
-	/* =======================================================================
-		Save
-	========================================================================== */
-	public static function get(callback:Dynamic):Void {
+		/* =======================================================================
+			Save
+		========================================================================== */
+		public static function get(callback:Dynamic->Void):Void {
 
-		_storage.get(APP_NAME,function(object:Dynamic) {
+			_storage.get(APP_NAME,function(strage:Dynamic) {
 
-			var data : Dynamic = Reflect.getProperty(object,APP_NAME);
-			callback(data);
+				var data : Dynamic = Reflect.getProperty(strage,APP_NAME);
+				callback(data);
 
-		});
+			});
 
-	}
+		}
 
-	/* =======================================================================
-		Save
-	========================================================================== */
-	public static function save(key:String,value:Dynamic):Void {
+		/* =======================================================================
+			Save
+		========================================================================== */
+		public static function save(key:String,value:Dynamic):Void {
 
-		get(function(data:Dynamic) {
+			get(function(data:Dynamic) {
 
-			if (data == null) {
-				data = {};
-			}
-			Reflect.setProperty(data,key,value);
-			var object : Dynamic = {};
-			Reflect.setProperty(object,APP_NAME,data);
-			_storage.set(object,function() {
+				if (data == null) data = {};
+				Reflect.setProperty(data,key,value);
+				var strage : Dynamic = {};
+				Reflect.setProperty(strage,APP_NAME,data);
 
-					Message.send('Successfully saved "' + key + '"','success');
+				_storage.set(strage,function() {
+						Message.say('Successfully saved "${key}"','success');
+					}
+				);
 
-				}
-			);
+			});
 
-		});
-
-	}
+		}
 
 }

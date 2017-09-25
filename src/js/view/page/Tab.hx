@@ -158,7 +158,7 @@ class Tab {
 				var value : String = jInput.val();
 				if (value == '') {
 					jInput.focus();
-					Message.send('name is empty','error');
+					Message.say('name is empty','error');
 					return;
 				}
 

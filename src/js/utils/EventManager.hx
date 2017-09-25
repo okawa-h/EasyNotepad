@@ -1,6 +1,5 @@
 package utils;
 
-import js.jquery.JQuery;
 import js.jquery.Event;
 import view.PageManager;
 import view.PopupWindow;
@@ -9,7 +8,7 @@ using Lambda;
 
 class EventManager {
 
-	private static var _keys    : Array<Int>;
+	private static var _keys : Array<Int>;
 
 	/* =======================================================================
 		Init
@@ -27,42 +26,42 @@ class EventManager {
 
 	}
 
-		/* =======================================================================
-			On Keydown
-		========================================================================== */
-		private static function onKeydown(event:Event):Void {
+	/* =======================================================================
+		On Keydown
+	========================================================================== */
+	private static function onKeydown(event:Event):Void {
 
-			var key : Int = event.keyCode;
-			_keys.push(key);
+		var key : Int = event.keyCode;
+		_keys.push(key);
 
-			if (_keys.has(91) && key == 13) {
+		if (_keys.has(91) && key == 13) {
 
-				PageManager.onShortcutSave();
-
-			}
-
-			if (_keys.has(91) && key == 67) {
-
-				PopupWindow.close();
-
-			}
+			PageManager.save();
 
 		}
 
-		/* =======================================================================
-			On Keyup
-		========================================================================== */
-		private static function onKeyup(event:Event):Void {
+		if (_keys.has(91) && key == 67) {
 
-			_keys = [];
-
-			switch (event.keyCode) {
-				case 13:
-					PageManager.onEnterKey();
-			}
-
-			PageManager.onKeyup();
+			PopupWindow.close();
 
 		}
+
+	}
+
+	/* =======================================================================
+		On Keyup
+	========================================================================== */
+	private static function onKeyup(event:Event):Void {
+
+		_keys = [];
+
+		switch (event.keyCode) {
+			case 13:
+				PageManager.onEnterKey();
+		}
+
+		PageManager.onKeyup();
+
+	}
 
 }

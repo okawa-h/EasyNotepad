@@ -2,28 +2,36 @@ package utils;
 
 class Handy {
 
-	/* =======================================================================
-		Get Unique ID
-	========================================================================== */
-	public static function getUniqueID(?original:Int):String {
+		/* =======================================================================
+			Get Unique ID
+		========================================================================== */
+		public static function getUniqueID(?original:Int):String {
 
-		var strong : Int = 1000;
-		if (original != null) strong = original;
+			var strong : Int = 1000;
+			if (original != null) strong = original;
 
-		var id   : String = '';
-		var date : Date = Date.now();
-		var year  : Int = date.getFullYear();
-		var month : Int = date.getMonth() + 1;
-		var day   : Int = date.getDate();
-		var hour  : Int = date.getHours();
-		var minute: Int = date.getMinutes();
-		var time  : String = '${year}${month}${day}${hour}${minute}';
+			var time : String = DateTools.format(Date.now(),'%Y%m%d%H%M');
+			var id   : String = time + Math.floor(strong * Math.random());
 
-		id = time + Math.floor(strong * Math.random());
+			return id;
 
-		return id;
+		}
 
-	}
+		/* =======================================================================
+			Get Tab
+		========================================================================== */
+		public static function getTabData(status:String,callback:Dynamic->Void):Void {
+
+			untyped chrome.tabs.query({ active:true },function(tab) {
+
+				chrome.tabs.sendMessage(tab[0].id, { status:status }, function(response:Dynamic) {
+
+					callback(response);
+
+				});
+			});
+
+		}
 
 
 }

@@ -8,7 +8,7 @@ import view.page.*;
 class PageManager {
 
 	private static var _jParent : JQuery;
-	private static var _Pages   : Map<String,Page>;
+	private static var _pageMap : Map<String,Page>;
 
 	/* =======================================================================
 		Init
@@ -16,114 +16,97 @@ class PageManager {
 	public static function init():Void {
 
 		_jParent = new JQuery('#pages');
-		_Pages   = new Map();
-		_Pages['memo']    = new Memo();
-		_Pages['setting'] = new Setting();
+		_pageMap = new Map();
+		_pageMap['memo']    = new Memo();
+		_pageMap['setting'] = new Setting();
 
-		new JQuery('[data-jump]').on({ 'click':onJumpButton });
-
-	}
-
-	/* =======================================================================
-		Add HTML
-	========================================================================== */
-	public static function addHTML(html:String) {
-
-		_jParent.append(html);
-
-	}
-
-	/* =======================================================================
-		Set
-	========================================================================== */
-	public static function set(data:Dynamic) {
-
-		counter(function(page:Page) {
-			page.set(data);
-		});
-
-		hideAll();
-		_Pages['memo'].show();
-
-	}
-
-	/* =======================================================================
-		On Shortcut Save
-	========================================================================== */
-	public static function onShortcutSave():Void {
-
-		getCurrentPage().save();
-
-	}
-
-	/* =======================================================================
-		On Enter Key
-	========================================================================== */
-	public static function onEnterKey():Void {
-
-		getCurrentPage().onEnterKey();
-
-	}
-
-	/* =======================================================================
-		On Keyup
-	========================================================================== */
-	public static function onKeyup():Void {
-
-		getCurrentPage().onKeyup();
+		new JQuery('[data-jump]').on({ 'click':onShow });
 
 	}
 
 		/* =======================================================================
-			Hide All
+			Add HTML
 		========================================================================== */
-		private static function hideAll():Void {
+		public static function addHTML(html:String) {
 
-			counter(function(page:Page) {
-				page.hide();
-			});
+			_jParent.append(html);
 
 		}
 
 		/* =======================================================================
-			Get Current Page
+			Set
 		========================================================================== */
-		private static function getCurrentPage():Page {
+		public static function set(data:Dynamic) {
 
-			var currentPage : Page = null;
-
-			counter(function(page:Page) {
-
-				if (page.isCurrent()) currentPage = page;
-
-			});
-
-			return currentPage;
-
-		}
-
-		/* =======================================================================
-			Counter
-		========================================================================== */
-		private static function counter(func:Page->Void):Void {
-
-			for (key in _Pages.keys()) {
-
-				func(_Pages[key]);
-
+			for (key in _pageMap.keys()) {
+				_pageMap[key].set(data);
 			}
 
+			hideAll();
+			_pageMap['memo'].show();
+
 		}
 
 		/* =======================================================================
-			On Jump Button
+			Save
 		========================================================================== */
-		private static function onJumpButton(event:Event):Void {
+		public static function save():Void {
 
-			hideAll();
-			var pagename : String = new JQuery(event.currentTarget).data('jump');
-			_Pages[pagename].show();
+			getCurrentPage().save();
 
 		}
+
+		/* =======================================================================
+			On Enter Key
+		========================================================================== */
+		public static function onEnterKey():Void {
+
+			getCurrentPage().onEnterKey();
+
+		}
+
+		/* =======================================================================
+			On Keyup
+		========================================================================== */
+		public static function onKeyup():Void {
+
+			getCurrentPage().onKeyup();
+
+		}
+
+	/* =======================================================================
+		On Show
+	========================================================================== */
+	private static function onShow(event:Event):Void {
+
+		hideAll();
+		var pagename : String = new JQuery(event.currentTarget).data('jump');
+		_pageMap[pagename].show();
+
+	}
+
+	/* =======================================================================
+		Hide All
+	========================================================================== */
+	private static function hideAll():Void {
+
+		for (key in _pageMap.keys()) {
+			_pageMap[key].hide();
+		}
+
+	}
+
+	/* =======================================================================
+		Get Current Page
+	========================================================================== */
+	private static function getCurrentPage():Page {
+
+		for (key in _pageMap.keys()) {
+			var page : Page = _pageMap[key];
+			if (page.isCurrent()) return page;
+		}
+		return null;
+
+	}
 
 }
