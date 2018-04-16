@@ -8,7 +8,8 @@ import view.*;
 
 class Main {
 
-	public static inline var APP_NAME : String = 'EASY_NOTEPAD';
+	public static inline var APP_NAME:String = 'EASY_NOTEPAD';
+	private static var _jAll:JQuery;
 
 	/* =======================================================================
 		Main
@@ -24,21 +25,25 @@ class Main {
 	========================================================================== */
 	public static function init(event:Event):Void {
 
+		_jAll = new JQuery('#all');
+
 		Storage.init();
 		Message.init();
 		Modalwindow.init();
 		EventManager.init();
 		PageManager.init();
-		setCloseButton();
 
-		onInit();
+		append(new JQuery('<button class="window-ui" data-ui="close">✕</button>'));
+		setData();
+
+		_jAll.on('click','[data-ui]',onClick);
 
 	}
 
 	/* =======================================================================
 		On Init
 	========================================================================== */
-	private static function onInit():Void {
+	private static function setData():Void {
 
 		Storage.get(function(data:Dynamic) {
 
@@ -50,16 +55,24 @@ class Main {
 	}
 
 	/* =======================================================================
-		Set Close Button
+		On Click
 	========================================================================== */
-	private static function setCloseButton():Void {
+	private static function onClick(event:Event):Void {
 
-		new JQuery('#button-close').on('click',function() {
-
-			PopupWindow.close();
-
-		});
+		var action:String = new JQuery(event.currentTarget).data('ui');
+		switch (action) {
+			case 'close':PopupWindow.close();
+		}
 
 	}
+
+		/* =======================================================================
+			Append
+		========================================================================== */
+		public static function append(jTarget:JQuery):Void {
+
+			_jAll.children().append(jTarget);
+
+		}
 
 }

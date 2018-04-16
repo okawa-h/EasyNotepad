@@ -6,8 +6,8 @@ import js.jquery.JQuery;
 
 class PopupWindow {
 
-	private static var _window  : Window = Browser.window;
-	private static var _jWindow : JQuery = new JQuery(Browser.window);
+	private static var _window :Window = Browser.window;
+	private static var _jWindow:JQuery = new JQuery(Browser.window);
 
 		/* =======================================================================
 			Get

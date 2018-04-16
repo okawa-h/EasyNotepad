@@ -73,9 +73,9 @@ class MemoManager {
 
 		_jNavi.find('.page-tab').off().on('click',function(event:Event) {
 
-			var jTarget : JQuery = new JQuery(event.currentTarget);
-			var id      : String = jTarget.data('area_tab');
-			var tab     : Tab    = _tabMap[id];
+			var jTarget:JQuery = new JQuery(event.currentTarget);
+			var id     :String = jTarget.data('area_tab');
+			var tab    :Tab    = _tabMap[id];
 
 			if (tab.isEdit()) return;
 			if (tab.isActive()) {
@@ -112,7 +112,7 @@ class MemoManager {
 		========================================================================== */
 		public static function getData():Array<Dynamic> {
 
-			var datas : Array<Dynamic> = [];
+			var datas:Array<Dynamic> = [];
 			for (tab in _tabMap) {
 				datas.push({
 					id    : tab.getID(),
@@ -130,7 +130,7 @@ class MemoManager {
 		========================================================================== */
 		public static function getActiveTab():Tab {
 
-			var id : String = _jNavi.find('.active').data('area_tab');
+			var id:String = _jNavi.find('.active').data('area_tab');
 			return _tabMap[id];
 
 		}
@@ -176,7 +176,7 @@ class MemoManager {
 		========================================================================== */
 		public static function addTab(data:Dynamic):Void {
 
-			var tab : Tab = new Tab(data);
+			var tab:Tab = new Tab(data);
 			_tabMap[tab.getID()] = tab;
 			setTabButton();
 
@@ -221,9 +221,9 @@ class MemoManager {
 
 		Handy.getTabData('url',function(response:Dynamic) {
 
-			var text    : String = '';
-			var title   : String = Reflect.getProperty(response,'title');
-			var location: String = Reflect.getProperty(response,'location');
+			var text    :String = '';
+			var title   :String = Reflect.getProperty(response,'title');
+			var location:String = Reflect.getProperty(response,'location');
 
 			if (title == null && location == null) {
 				Message.say('Failed to get "title,location"','error');
@@ -254,7 +254,7 @@ class MemoManager {
 	========================================================================== */
 	private static function addTime():Void {
 
-		var date : String = DateTools.format(Date.now(),'【%Y.%m.%d %H:%M】');
+		var date:String = DateTools.format(Date.now(),'【%Y.%m.%d %H:%M】');
 		getActiveTab().addText(date);
 		save();
 

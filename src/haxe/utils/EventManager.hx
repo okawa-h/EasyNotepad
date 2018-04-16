@@ -8,7 +8,7 @@ using Lambda;
 
 class EventManager {
 
-	private static var _keys : Array<Int>;
+	private static var _keys:Array<Int>;
 
 	/* =======================================================================
 		Init
@@ -18,10 +18,8 @@ class EventManager {
 		_keys = new Array();
 
 		PopupWindow.get().on({
-
-			keydown : onKeydown,
-			keyup   : onKeyup
-
+			keydown:onKeydown,
+			keyup  :onKeyup
 		});
 
 	}
@@ -31,20 +29,14 @@ class EventManager {
 	========================================================================== */
 	private static function onKeydown(event:Event):Void {
 
-		var key : Int = event.keyCode;
+		var key:Int = event.keyCode;
 		_keys.push(key);
 
-		if (_keys.has(91) && key == 13) {
-
-			PageManager.save();
-
-		}
-
-		if (_keys.has(91) && key == 67) {
-
-			PopupWindow.close();
-
-		}
+		// 91:Command
+		// 13:Enter
+		// 67:c
+		if (_keys.has(91) && key == 13) PageManager.save();
+		if (_keys.has(91) && key == 67) PopupWindow.close();
 
 	}
 
@@ -56,8 +48,7 @@ class EventManager {
 		_keys = [];
 
 		switch (event.keyCode) {
-			case 13:
-				PageManager.onEnterKey();
+			case 13:PageManager.onEnterKey();
 		}
 
 		PageManager.onKeyup();

@@ -7,11 +7,11 @@ class Handy {
 		========================================================================== */
 		public static function getUniqueID(?original:Int):String {
 
-			var strong : Int = 1000;
+			var strong:Int = 1000;
 			if (original != null) strong = original;
 
-			var time : String = DateTools.format(Date.now(),'%Y%m%d%H%M');
-			var id   : String = time + Math.floor(strong * Math.random());
+			var time:String = DateTools.format(Date.now(),'%Y%m%d%H%M');
+			var id  :String = time + Math.floor(strong * Math.random());
 
 			return id;
 

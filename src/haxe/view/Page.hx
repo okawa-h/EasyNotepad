@@ -7,8 +7,8 @@ import view.page.*;
 
 class Page {
 
-	private var _pagename : String;
-	private var _jParent  : JQuery;
+	private var _pagename:String;
+	private var _jParent :JQuery;
 
 	/* =======================================================================
 		Constoractor

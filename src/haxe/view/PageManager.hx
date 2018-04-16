@@ -7,15 +7,17 @@ import view.page.*;
 
 class PageManager {
 
-	private static var _jParent : JQuery;
-	private static var _pageMap : Map<String,Page>;
+	private static var _jParent:JQuery;
+	private static var _pageMap:Map<String,Page>;
 
 	/* =======================================================================
 		Init
 	========================================================================== */
 	public static function init():Void {
 
-		_jParent = new JQuery('#pages');
+		_jParent = new JQuery('<div id="pages"></div>');
+		Main.append(_jParent);
+		
 		_pageMap = new Map();
 		_pageMap['memo']    = new Memo();
 		_pageMap['setting'] = new Setting();

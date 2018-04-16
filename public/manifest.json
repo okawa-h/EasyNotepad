@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
-	"name"       : "メモ",
-	"description": "単なるメモ帳",
+	"name"       : "EasyNotepad",
+	"description": "so easy notepad",
 	"version"    : "0.1",
 	"icons"      : {
 		"16" : "files/img/icon/icon_16.png",
@@ -13,7 +13,7 @@
 			"19": "files/img/icon/icon_48.png",
 			"38": "files/img/icon/icon_48.png"
 		},
-		"default_title": "メモ",
+		"default_title": "EasyNotepad",
 		"default_popup": "popup.html"
 	},
 	"content_scripts": [

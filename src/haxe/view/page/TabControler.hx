@@ -17,7 +17,7 @@ class TabControler {
 	public static function init(jParent:JQuery):Void {
 
 		_jParent = jParent.find('.tab-controler');
-		new JQuery('[data-switch]').on({ 'click':onClick });
+		_jParent.on('click','[data-switch]',onClick);
 
 	}
 
@@ -26,13 +26,10 @@ class TabControler {
 	========================================================================== */
 	private static function onClick(event:Event):Void {
 
-		var action : String = new JQuery(event.currentTarget).data('switch');
-
+		var action:String = new JQuery(event.currentTarget).data('switch');
 		switch (action) {
-			case 'increment':
-				increment();
-			case 'decrement':
-				decrement();
+			case 'increment':increment();
+			case 'decrement':decrement();
 		}
 
 	}
@@ -55,8 +52,7 @@ class TabControler {
 	/* =======================================================================
 		decrement
 	========================================================================== */
-	private static function decrement():Void {
-
+	public static function decrement():Void {
 
 		Modalwindow.ask({
 

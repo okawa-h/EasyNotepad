@@ -1,3 +1,5 @@
 -main Main
--js files/js/popup.js
+-js public/files/js/popup.js
 -cp src/haxe/
+
+-cmd stylus --compress src/stylus/popup.styl -o public/files/css/ 

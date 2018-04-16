@@ -80,7 +80,6 @@ class Memo extends Page {
 					<nav class="tab-navi"></nav>
 					<div class="tab-controler">
 						<button class="button-switch" data-switch="increment">+</button>
-						<button class="button-switch" data-switch="decrement">-</button>
 					</div>
 				</header>
 				<div class="content"></div>

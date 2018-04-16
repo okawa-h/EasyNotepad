@@ -16,7 +16,8 @@ class Modalwindow {
 	========================================================================== */
 	public static function init():Void {
 
-		_jParent = new JQuery('#modalwindow');
+		_jParent = new JQuery('<div id="modalwindow"></div>');
+		Main.append(_jParent);
 		setHTML();
 
 		_jBg      = _jParent.find('.background');

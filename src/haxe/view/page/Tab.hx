@@ -8,9 +8,9 @@ import utils.*;
 
 class Tab {
 
-	private var _id   : String;
-	private var _name : String;
-	private var _jTab : JQuery;
+	private var _id  :String;
+	private var _name:String;
+	private var _jTab:JQuery;
 	private var _jTextarea : JQuery;
 
 	/* =======================================================================
@@ -21,12 +21,13 @@ class Tab {
 		_id   = data.id;
 		_name = data.name;
 
-		var html : Map<String,String> = getHTML(data);
+		var html:Map<String,String> = getHTML(data);
 		MemoManager.addNaviHTML(html['tab']);
 		MemoManager.addContentHTML(html['area']);
 		_jTab      = MemoManager.getNavi().find('[data-area_tab="${_id}"]');
 		_jTextarea = MemoManager.getContent().find('[data-area_id="${_id}"]').find('.textarea');
 
+		_jTab.find('.delete').on('click',TabControler.decrement);
 		_jTextarea.val(data.value);
 
 	}
@@ -144,25 +145,25 @@ class Tab {
 	========================================================================== */
 	public function editName():Void {
 
-		var name   : String = _jTab.text();
-		var jInput : JQuery = _jTab
-			.addClass('edit')
-			.html('<input class="edit-name" type="text">')
-			.find('.edit-name');
+		_jTab.addClass('edit');
+		var jName :JQuery = _jTab.find('.name');
+		var jInput:JQuery = _jTab.find('.edit-name');
+		var name  :String = jName.text();
+		jName.hide();
 
-		jInput
-			.focus()
-			.val(name)
+		jInput.show().focus().val(name).off('blur')
 			.on('blur',function() {
 
-				var value : String = jInput.val();
+				var value:String = jInput.val();
 				if (value == '') {
 					jInput.focus();
 					Message.say('name is empty','error');
 					return;
 				}
 
-				_jTab.removeClass('edit').html(value);
+				jName.show().text(value);
+				jInput.hide();
+				_jTab.removeClass('edit');
 				_name = value;
 				MemoManager.save();
 
@@ -175,10 +176,10 @@ class Tab {
 	========================================================================== */
 	public function addText(text:String):Void {
 
-		var value    : String = getValue();
-		var position : Int    = getCursorPosition();
-		var before   : String = value.substr(0,position);
-		var after    : String = value.substr(position,value.length);
+		var value   :String = getValue();
+		var position:Int    = getCursorPosition();
+		var before  :String = value.substr(0,position);
+		var after   :String = value.substr(position,value.length);
 
 		if (value.substr(position-1,position) != '\n') before += '\n';
 		if (value.substr(position,position + 1) != '\n') after = '\n' + after;
@@ -192,14 +193,18 @@ class Tab {
 		========================================================================== */
 		private function getHTML(data:Dynamic):Map<String,String> {
 
-			var map : Map<String,String> = new Map();
-			map['tab']  = '<button class="page-tab" data-area_tab="${_id}">${_name}</button>';
-			map['area'] = 
-				'<div class="content-area" data-area_id="${_id}">
-					<textarea class="textarea"></textarea>
-				</div>';
-
-			return map;
+			return [
+				'tab' =>
+					'<div class="page-tab" data-area_tab="${_id}">
+						<p class="name">${_name}</p>
+						<input class="edit-name" type="text">
+						<p class="delete">×</p>
+					</div>',
+				'area' =>
+					'<div class="content-area" data-area_id="${_id}">
+						<textarea class="textarea"></textarea>
+					</div>',
+			];
 
 		}
 
