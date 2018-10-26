@@ -16,7 +16,7 @@ class Main {
 	========================================================================== */
 	public static function main():Void {
 
-		new JQuery('document').ready(init);
+		new JQuery(Browser.document).ready(init);
 
 	}
 

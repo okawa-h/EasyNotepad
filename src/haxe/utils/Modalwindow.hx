@@ -6,10 +6,10 @@ import view.PopupWindow;
 
 class Modalwindow {
 
-	private static var _jParent : JQuery;
-	private static var _jBg     : JQuery;
-	private static var _jContent: JQuery;
-	private static var _jField  : JQuery;
+	private static var _jParent :JQuery;
+	private static var _jBg     :JQuery;
+	private static var _jContent:JQuery;
+	private static var _jField  :JQuery;
 
 	/* =======================================================================
 		Init

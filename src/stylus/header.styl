@@ -1,0 +1,69 @@
+.header {
+	margin-bottom: 1.4rem;
+	.tab-navi {
+		float: left;
+		width: 87%;
+		margin-top: -1rem;
+	}
+	.tab-controler {
+		float: right;
+		width: 8%;
+		margin-right: 5%;
+	}
+	.page-tab {
+		display: inline-block;
+		position: relative;
+		margin-top: 1rem;
+		margin-right: 1rem;
+		.name {
+			padding: 0 .5rem .5rem;
+			border-bottom: 2px solid transparent;
+			color: #888;
+			font-size: 1.1rem;
+			font-family: 'Roboto',arial,sans-serif;
+			letter-spacing: .1rem;
+			line-height: 1rem;
+		}
+		.edit-name {
+			display: none;
+		}
+		.delete {
+			display: block;
+			opacity: 0;
+			position: absolute;
+			top: -.5rem;
+			right: -.5rem;
+			padding: 0 0.2rem;
+			cursor: pointer;
+			transition: opacity .25s ease-in-out;
+		}
+		&.active {
+			.name {
+				border-bottom-color: $color_main;
+				color: $color_main;
+				cursor: text;
+			}
+		}
+		&.edit {
+			.name,.delete {
+				display: none !important;
+			}
+			.edit-name {
+				display: block;
+			}
+		}
+		&:hover {
+			.delete {
+				display: block;
+				opacity: 1;
+			}
+		}
+	}
+	.page-title {
+		display: inline-block;
+		color: #888;
+		font-size: 1.1rem;
+		font-family: 'Roboto',arial,sans-serif;
+		letter-spacing: .1rem;
+	}
+}

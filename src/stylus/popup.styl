@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import 'base.styl';
 
 $color_main    = #7f95d1;
 $color_success = #a0b4e5;
@@ -9,6 +8,10 @@ $color_ui      = #bbb;
 
 $input_color = #3b3b3b;
 $input_bg    = #f3f3f3;
+
+$root_image_path = '../img/';
+
+@import 'base.styl';
 
 /*-------------------------------------------------------------------------
 	Init
@@ -45,75 +48,7 @@ html {
 /*-------------------------------------------------------------------------
 	Header
 /*-----------------------------------------------------------------------*/
-.header {
-	margin-bottom: 1.4rem;
-	.tab-navi {
-		float: left;
-		width: 87%;
-		margin-top: -1rem;
-	}
-	.tab-controler {
-		float: right;
-		width: 8%;
-		margin-right: 5%;
-	}
-	.page-tab {
-		display: inline-block;
-		position: relative;
-		margin-top: 1rem;
-		margin-right: 1rem;
-		.name {
-			padding: 0 .5rem .5rem;
-			border-bottom: 2px solid transparent;
-			color: #888;
-			font-size: 1.1rem;
-			font-family: 'Roboto',arial,sans-serif;
-			letter-spacing: .1rem;
-			line-height: 1rem;
-		}
-		.edit-name {
-			display: none;
-		}
-		.delete {
-			display: block;
-			opacity: 0;
-			position: absolute;
-			top: -.5rem;
-			right: -.5rem;
-			padding: 0 0.2rem;
-			cursor: pointer;
-			transition: opacity .25s ease-in-out;
-		}
-		&.active {
-			.name {
-				border-bottom-color: $color_main;
-				color: $color_main;
-				cursor: text;
-			}
-		}
-		&.edit {
-			.name,.delete {
-				display: none !important;
-			}
-			.edit-name {
-				display: block;
-			}
-		}
-		&:hover {
-			.delete {
-				display: block;
-				opacity: 1;
-			}
-		}
-	}
-	.page-title {
-		display: inline-block;
-		color: #888;
-		font-size: 1.1rem;
-		font-family: 'Roboto',arial,sans-serif;
-		letter-spacing: .1rem;
-	}
-}
+@import 'header.styl';
 
 /*-------------------------------------------------------------------------
 	Input
@@ -157,11 +92,11 @@ html {
 		opacity: .8;
 	}
 	&[data-jump="setting"] {
-		background-image: url('../img/icon/setting.png');
+		background-image: url($root_image_path + 'icon/setting.png');
 	}
 
 	&[data-jump="memo"] {
-		background-image: url('../img/icon/memo.png');
+		background-image: url($root_image_path + 'icon/memo.png');
 	}
 }
 
@@ -178,7 +113,7 @@ html {
 	cursor: pointer;
 	transition: all .1s ease-in-out;
 	&:hover {
-		background-color: #a0b4e5;
+		background-color: $color_success;
 	}
 	&:active {
 		background-color: #4f68a8;
@@ -202,7 +137,7 @@ html {
 	cursor: pointer;
 	transition: all .1s ease-in-out;
 	&:hover {
-		background-color: #a0b4e5;
+		background-color: $color_success;
 	}
 	&:active {
 		background-color: #4f68a8;
@@ -225,7 +160,7 @@ html {
 	cursor: pointer;
 	transition: all .1s ease-in-out;
 	&:hover {
-		background-color: #a0b4e5;
+		background-color: $color_success;
 	}
 	&:active {
 		background-color: #4f68a8;
@@ -321,54 +256,4 @@ html {
 /*-------------------------------------------------------------------------
 	Modalwindow
 /*-----------------------------------------------------------------------*/
-#modalwindow {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	.background {
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0,0,0,.6);
-	}
-	.modalwindow-content {
-		position: absolute;
-		left: 0;
-		right: 0;
-		width: 60%;
-		margin: auto;
-		border-radius: 2px;
-		background-color: #fff;
-		.button-close {
-			position: absolute;
-			top: 1.5rem;
-			right: 1.5rem;
-			color: $color_ui;
-			font-size: .8rem;
-		}
-		.modalwindow-field {
-			padding: 2rem;
-		}
-		.title {
-			margin-bottom: .5rem;
-			font-size: 1.2rem;
-			font-weight: bold;
-			text-align: center;
-		}
-		.text {
-			font-size: .9rem;
-			text-align: center;
-		}
-		.judge {
-			margin-top: 2rem;
-			text-align: center;
-			button {
-				margin: 0 1rem;
-				padding: .2rem 1rem;
-				font-size: 1rem;
-			}
-		}
-	}
-}
+@import 'modalwindow.styl';

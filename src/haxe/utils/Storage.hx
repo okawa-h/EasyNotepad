@@ -1,7 +1,7 @@
 package utils;
 
 import js.jquery.JQuery;
-import Main.APP_NAME as name;
+import Main.APP_NAME;
 
 class Storage {
 
@@ -21,9 +21,9 @@ class Storage {
 		========================================================================== */
 		public static function get(callback:Dynamic->Void):Void {
 
-			_storage.get(name,function(strage:Dynamic) {
+			_storage.get(APP_NAME,function(strage:Dynamic) {
 
-				var data:Dynamic = Reflect.getProperty(strage,name);
+				var data:Dynamic = Reflect.getProperty(strage,APP_NAME);
 				callback(data);
 
 			});
@@ -39,13 +39,12 @@ class Storage {
 
 				if (data == null) data = {};
 				Reflect.setProperty(data,key,value);
-				var strage:Dynamic = {};
-				Reflect.setProperty(strage,name,data);
+				var storage:Dynamic = {};
+				Reflect.setProperty(storage,APP_NAME,data);
 
-				_storage.set(strage,function() {
+				_storage.set(storage,function() {
 						Message.say('Successfully saved "${key}"','success');
-					}
-				);
+				});
 
 			});
 
