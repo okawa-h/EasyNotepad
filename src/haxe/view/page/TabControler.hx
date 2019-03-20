@@ -16,23 +16,23 @@ class TabControler {
 	========================================================================== */
 	public static function init(jParent:JQuery):Void {
 
-		_jParent = jParent.find('.tab-controler');
-		_jParent.on('click','[data-switch]',onClick);
+		// _jParent = jParent.find('.tab-controler');
+		// _jParent.on('click','[data-switch]',onClick);
 
 	}
 
-	/* =======================================================================
-		On Click
-	========================================================================== */
-	private static function onClick(event:Event):Void {
+		/* =======================================================================
+			On Click
+		========================================================================== */
+		public static function onClick(event:Event):Void {
 
-		var action:String = new JQuery(event.currentTarget).data('switch');
-		switch (action) {
-			case 'increment':increment();
-			case 'decrement':decrement();
+			var action:String = new JQuery(event.currentTarget).data('add');
+			switch (action) {
+				case 'increment':increment();
+				case 'decrement':decrement();
+			}
+
 		}
-
-	}
 
 	/* =======================================================================
 		Increment
