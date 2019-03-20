@@ -77,19 +77,35 @@ class Setting extends Page {
 	========================================================================== */
 	private override function setHTML():Void {
 
-		var html : String = '
-			<section data-content="${_pagename}">
+		var html:String =
+			'<section data-content="${_pagename}">
 				<header class="header">
 					<h2 class="page-title">Setting</h2>
 				</header>
 				<div class="content">
 					<ul class="setting-list">
-						<li><label><p>Height (input textarea)</p><input class="input-setting" type="text" name="height">px</label></li>
-						<li><label><p>Font size</p><input class="input-setting" type="text" name="fontSize">px</label></li>
+						<li>
+							<label>
+								<p>Height (input textarea)</p>
+								<input class="input-setting" type="text" name="height">px
+							</label>
+						</li>
+						<li>
+							<label>
+								<p>Font size</p>
+								<input class="input-setting" type="text" name="fontSize">px
+							</label>
+						</li>
 					</ul>
 				</div>
-				<button class="button-save"><span>SAVE</span></button>
-				<button class="button-jump" data-jump="memo">&nbsp;</button>
+				<div class="button-list">
+					<div class="button-list-utils">
+						<button class="button button-save">
+							<span>Save</span>
+						</button>
+					</div>
+					<button class="button-jump" data-jump="memo">&nbsp;</button>
+				</div>
 			</section>';
 
 		PageManager.addHTML(html);

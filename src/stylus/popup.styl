@@ -1,13 +1,15 @@
 @charset "UTF-8";
 
-$color_main    = #7f95d1;
-$color_success = #a0b4e5;
+$color_main    = #1E88E5;
+$color_success = #42a5f5;
+$color_active  = #1976D2;
 $color_nice    = #a2ea93;
 $color_error   = #ff82a9;
 $color_ui      = #bbb;
 
 $input_color = #3b3b3b;
 $input_bg    = #f3f3f3;
+$input_active_bg = #ececec;
 
 $root_image_path = '../img/';
 
@@ -43,6 +45,7 @@ html {
 	right: 2.5rem;
 	color: $color_ui;
 	font-size: .8rem;
+	font-weight: bold;
 }
 
 /*-------------------------------------------------------------------------
@@ -54,8 +57,11 @@ html {
 	Input
 /*-----------------------------------------------------------------------*/
 .edit-name {
-	padding: .3rem .5rem .2rem;
-	border: none;
+	max-width: 7em;
+	padding: calc(.5rem - 1.5px) 1rem;
+	border: 2px solid #bbb;
+	border-radius: 3px;
+	box-sizing: border-box;
 	color: $input_color;
 	font-size: 1rem;
 	transition: background-color .1s ease-in-out;
@@ -78,11 +84,26 @@ html {
 /*-------------------------------------------------------------------------
 	Button
 /*-----------------------------------------------------------------------*/
+.button-list {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	&:after {
+		display: none;
+	}
+	.button-list-utils {
+		.button-utils {
+			margin-right: .5rem;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
 .button-jump {
-	position: relative;
-	float: right;
-	width: 1.5rem;
-	height: 1.5rem;
+	width: 1rem;
+	height: 1rem;
 	background-position: center;
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -100,73 +121,26 @@ html {
 	}
 }
 
-.button-save {
-	width: 7rem;
-	margin-right: 1rem;
-	padding: .4rem 1rem;
-	border: 1px solid $color_main;
-	border-radius: 2px;
+.button {
+	display: inline-block;
+	border-radius: 3px;
 	background-color: $color_main;
 	color: #fff;
 	font-size: .8rem;
-	letter-spacing: .4rem;
+	line-height: 1;
 	cursor: pointer;
 	transition: all .1s ease-in-out;
 	&:hover {
 		background-color: $color_success;
 	}
 	&:active {
-		background-color: #4f68a8;
+		background-color: $color_active;
 		letter-spacing: .1rem;
 	}
-	&:focus {
-		border: 1px solid #4f68a8;
-	}
-}
-
-.button-utils {
-	width: 7rem;
-	margin-right: 1rem;
-	padding: .4rem 1rem;
-	border: 1px solid $color_main;
-	border-radius: 2px;
-	background-color: $color_main;
-	color: #fff;
-	font-size: .8rem;
-	letter-spacing: .4rem;
-	cursor: pointer;
-	transition: all .1s ease-in-out;
-	&:hover {
-		background-color: $color_success;
-	}
-	&:active {
-		background-color: #4f68a8;
-		letter-spacing: .1rem;
-	}
-	&:focus {
-		border: 1px solid #4f68a8;
-	}
-}
-
-.button-switch {
-	margin-right: .4rem;
-	padding: .4rem .8rem;
-	border: 1px solid $color_main;
-	border-radius: 2px;
-	background-color: $color_main;
-	color: #fff;
-	font-size: .8rem;
-	text-align: center;
-	cursor: pointer;
-	transition: all .1s ease-in-out;
-	&:hover {
-		background-color: $color_success;
-	}
-	&:active {
-		background-color: #4f68a8;
-	}
-	&:focus {
-		border: 1px solid #4f68a8;
+	span {
+		display: inline-block;
+		min-width: 5rem;
+		padding: .8rem 1rem;
 	}
 }
 
@@ -203,8 +177,11 @@ html {
 	font-size: 1rem;
 	letter-spacing: .1rem;
 	resize: none;
-	transition: border .1s ease-in-out;
+	transition: all .15s ease-in-out;
 	background-color: $input_bg;
+	&:active,&:focus {
+		background-color: $input_active_bg;
+	}
 }
 
 /*-------------------------------------------------------------------------
@@ -236,8 +213,8 @@ html {
 /*-----------------------------------------------------------------------*/
 #message {
 	position: absolute;
-	right: 4.6rem;
-	bottom: 3rem;
+	right: 2rem;
+	bottom: 1.4rem;
 	font-size: .8rem;
 	p {
 		position: relative;

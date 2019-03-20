@@ -97,12 +97,14 @@ class MemoManager {
 		========================================================================== */
 		public static function setAddButton(event:Event):Void {
 
-			var key : String = new JQuery(event.currentTarget).data('add');
+			var key:String = new JQuery(event.currentTarget).data('add');
 			switch (key) {
 				case 'url':
 					addUrl();
 				case 'time':
 					addTime();
+				case 'increment':
+					TabControler.onClick(event);
 			}
 
 		}

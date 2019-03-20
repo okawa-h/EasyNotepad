@@ -712,7 +712,7 @@ view_page_Memo.prototype = $extend(view_Page.prototype,{
 		view_page_MemoManager.focus();
 	}
 	,setHTML: function() {
-		var html = "\n\t\t\t<section data-content=\"" + this._pagename + "\">\n\t\t\t\t<header class=\"header\">\n\t\t\t\t\t<nav class=\"tab-navi\"></nav>\n\t\t\t\t\t<div class=\"tab-controler\">\n\t\t\t\t\t\t<button class=\"button-switch\" data-switch=\"increment\">+</button>\n\t\t\t\t\t</div>\n\t\t\t\t</header>\n\t\t\t\t<div class=\"content\"></div>\n\t\t\t\t<button class=\"button-utils\" data-add=\"url\"><span>URL</span></button>\n\t\t\t\t<button class=\"button-utils\" data-add=\"time\"><span>TIME</span></button>\n\t\t\t\t<button class=\"button-jump\" data-jump=\"setting\">&nbsp;</button>\n\t\t\t</section>";
+		var html = "\n\t\t\t<section data-content=\"" + this._pagename + "\">\n\t\t\t\t<header class=\"header\">\n\t\t\t\t\t<nav class=\"tab-navi\"></nav>\n\t\t\t\t</header>\n\t\t\t\t<div class=\"content\"></div>\n\t\t\t\t<div class=\"button-list\">\n\t\t\t\t\t<div class=\"button-list-utils\">\n\t\t\t\t\t\t<button class=\"button button-utils\" data-add=\"increment\">\n\t\t\t\t\t\t\t<span>Add tab</span>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t\t<button class=\"button button-utils\" data-add=\"url\">\n\t\t\t\t\t\t\t<span>Stamp URL</span>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t\t<button class=\"button button-utils\" data-add=\"time\">\n\t\t\t\t\t\t\t<span>Stamp time</span>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button class=\"button-jump\" data-jump=\"setting\">&nbsp;</button>\n\t\t\t\t</div>\n\t\t\t</section>";
 		view_PageManager.addHTML(html);
 	}
 });
@@ -775,6 +775,9 @@ view_page_MemoManager.setTabButton = function() {
 view_page_MemoManager.setAddButton = function(event) {
 	var key = $(event.currentTarget).data("add");
 	switch(key) {
+	case "increment":
+		view_page_TabControler.onClick(event);
+		break;
 	case "time":
 		view_page_MemoManager.addTime();
 		break;
@@ -907,7 +910,7 @@ view_page_Setting.prototype = $extend(view_Page.prototype,{
 		}
 	}
 	,setHTML: function() {
-		var html = "\n\t\t\t<section data-content=\"" + this._pagename + "\">\n\t\t\t\t<header class=\"header\">\n\t\t\t\t\t<h2 class=\"page-title\">Setting</h2>\n\t\t\t\t</header>\n\t\t\t\t<div class=\"content\">\n\t\t\t\t\t<ul class=\"setting-list\">\n\t\t\t\t\t\t<li><label><p>Height (input textarea)</p><input class=\"input-setting\" type=\"text\" name=\"height\">px</label></li>\n\t\t\t\t\t\t<li><label><p>Font size</p><input class=\"input-setting\" type=\"text\" name=\"fontSize\">px</label></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t\t<button class=\"button-save\"><span>SAVE</span></button>\n\t\t\t\t<button class=\"button-jump\" data-jump=\"memo\">&nbsp;</button>\n\t\t\t</section>";
+		var html = "<section data-content=\"" + this._pagename + "\">\n\t\t\t\t<header class=\"header\">\n\t\t\t\t\t<h2 class=\"page-title\">Setting</h2>\n\t\t\t\t</header>\n\t\t\t\t<div class=\"content\">\n\t\t\t\t\t<ul class=\"setting-list\">\n\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t<p>Height (input textarea)</p>\n\t\t\t\t\t\t\t\t<input class=\"input-setting\" type=\"text\" name=\"height\">px\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t<p>Font size</p>\n\t\t\t\t\t\t\t\t<input class=\"input-setting\" type=\"text\" name=\"fontSize\">px\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"button-list\">\n\t\t\t\t\t<div class=\"button-list-utils\">\n\t\t\t\t\t\t<button class=\"button button-save\">\n\t\t\t\t\t\t\t<span>Save</span>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button class=\"button-jump\" data-jump=\"memo\">&nbsp;</button>\n\t\t\t\t</div>\n\t\t\t</section>";
 		view_PageManager.addHTML(html);
 	}
 	,getListData: function() {
@@ -1062,11 +1065,9 @@ view_page_Tab.prototype = {
 var view_page_TabControler = function() { };
 view_page_TabControler.__name__ = true;
 view_page_TabControler.init = function(jParent) {
-	view_page_TabControler._jParent = jParent.find(".tab-controler");
-	view_page_TabControler._jParent.on("click","[data-switch]",view_page_TabControler.onClick);
 };
 view_page_TabControler.onClick = function(event) {
-	var action = $(event.currentTarget).data("switch");
+	var action = $(event.currentTarget).data("add");
 	switch(action) {
 	case "decrement":
 		view_page_TabControler.decrement();

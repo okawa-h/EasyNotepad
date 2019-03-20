@@ -78,14 +78,22 @@ class Memo extends Page {
 			<section data-content="${_pagename}">
 				<header class="header">
 					<nav class="tab-navi"></nav>
-					<div class="tab-controler">
-						<button class="button-switch" data-switch="increment">+</button>
-					</div>
 				</header>
 				<div class="content"></div>
-				<button class="button-utils" data-add="url"><span>URL</span></button>
-				<button class="button-utils" data-add="time"><span>TIME</span></button>
-				<button class="button-jump" data-jump="setting">&nbsp;</button>
+				<div class="button-list">
+					<div class="button-list-utils">
+						<button class="button button-utils" data-add="increment">
+							<span>Add tab</span>
+						</button>
+						<button class="button button-utils" data-add="url">
+							<span>Stamp URL</span>
+						</button>
+						<button class="button button-utils" data-add="time">
+							<span>Stamp time</span>
+						</button>
+					</div>
+					<button class="button-jump" data-jump="setting">&nbsp;</button>
+				</div>
 			</section>';
 
 		PageManager.addHTML(html);
